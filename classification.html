@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>CogSkills - Cognitive Skill Tutoring App</title> 
+
+    
+	<link href="css/jquery-ui.css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.1.min.css" />
+    
+    <script src="js/libs/jquery-1.9.1.min.js"></script>
+    <script src="js/libs/jquery-ui.js"></script>
+    <script src="js/libs/jquery-ui.touch-punch.js"></script>
+	<script src="js/libs/ion.sound.js"></script>
+	<script src="js/libs/jquery.mobile-1.4.1.min.js"></script>
+  <style>
+draggableDog { width: 100px; height: 100px; padding: 0.1em; float: left; margin: 10px 10px 0 0; background-size: 100px 100px;
+				background-repeat:no-repeat; float: left; display: table-cell; z-index: 2}
+
+draggableCow { width: 100px; height: 100px; padding: 0.1em; float: left; margin: 10px 10px 0 0; background-size: 100px 100px;
+				background-repeat:no-repeat; float: left; display: table-cell; z-index: 2}
+				
+draggableTiger { width: 100px; height: 100px; padding: 0.1em; float: left; margin: 10px 10px 0 0; background-size: 100px 100px;
+				background-repeat:no-repeat; float: left; display: table-cell; z-index: 2 }
+				
+draggableElephant { width: 100px; height: 100px; padding: 0.1em; float: left; margin: 10px 10px 0 0; background-size: 100px 100px;
+				background-repeat:no-repeat; float: left; display: table-cell; z-index: 2}
+				
+#carnivore { width: 550px; height: 150px; padding: 0.5em; float: left; margin: 10px; border-style: dashed; display:table-cell;
+			float: left; position:relative; vertical-align: middle; z-index: 1; background-image: url(images/meat.png); background-repeat: no-repeat; background-position: left;}
+			
+#herbivore { width: 550px; height: 150px; padding: 0.5em; float: left; margin: 10px; border-style: dashed; display: table-cell;
+			float: left; position:absolute;z-index: 1;background-image: url(images/grass.png); background-repeat: no-repeat; background-position: left;}
+			
+.droppedCorrect{background-color: #008000; border-radius: 15px; }
+.droppedWrong{background-color: #FF3333; border-radius: 15px; }			
+</style>
+  </head>
+  <body>
+<div data-role="page" id="home">
+<header data-role="header">
+	<h1>CogSkills</h1>
+	<a href="index.html">Home</a>
+</header>
+
+    <div class="container">
+         
+		
+		<script>
+$(document).ready(function() {
+	$.ionSound({
+            sounds: [
+                "wrong",
+                "completed",
+                "bell_ring"
+            ],
+            path: getPhoneGapPath()+"sounds/",
+            multiPlay: true,
+            volume: "1.0"
+        });
+		
+ });
+ 
+function getPhoneGapPath() {
+
+    var path = window.location.pathname;
+    path = path.substr( path, path.length - 10 );
+    return 'file://' + path;
+
+};
+ 
+ 
+$(function() {
+	$( "#draggableElephant" ).draggable();
+	$( "#draggableTiger" ).draggable();
+	$( "#draggableCow" ).draggable();
+	$( "#draggableDog" ).draggable();
+	
+	
+	$("#carnivore").droppable({
+     drop: function(event, ui) {
+               // do something with the dock
+               //$(this).doSomething();
+
+               // do something with the draggable item
+               var dropV = $(this).attr('id');
+               var dragV = $(ui.draggable).attr('value');
+               if(dropV == dragV){               
+               		$(ui.draggable).removeClass();
+               		$(ui.draggable).addClass( "droppedCorrect" );
+               		$.ionSound.play("bell_ring");
+               		$(ui.draggable).draggable('disabled',1);
+               		
+               } else {
+			   		$(ui.draggable).addClass( "droppedWrong" );
+			   		$.ionSound.play("wrong");
+			   }
+           }
+	});
+	
+	$("#herbivore").droppable({
+     drop: function(event, ui) {
+               // do something with the dock
+               //$(this).doSomething();
+
+               // do something with the draggable item
+               var dropV = $(this).attr('id');
+               var dragV = $(ui.draggable).attr('value');
+               if(dropV == dragV){
+               		$(ui.draggable).removeClass();               
+               		$(ui.draggable).addClass( "droppedCorrect" );
+               		$.ionSound.play("bell_ring");
+               		$(ui.draggable).draggable('disabled',1);
+               		
+               } else {
+			   		$(ui.draggable).addClass( "droppedWrong" );
+			   		$.ionSound.play("wrong");
+					$(ui.draggable).draggable();
+			   }
+           }
+	});
+
+});
+ 
+</script>
+
+<div style="display: table;">
+	<div style="display: table-row">
+		<div id="carnivore" class="ui-body ui-body-a ui-corner-all">
+			<p style="text-shadow: 0.1em 0.1em 0.05em #333;margin:0.1em; font-size:150%;">Carnivore</p>
+			</div>
+		</div>
+	<div style="display: table-row">
+		<ul > 
+			<li id="draggableCow" style="background-image: url(images/cow.png); width: 100px; height: 100px; padding: 0.1em; float: left; margin: 10px 10px 0 0; background-size: 100px 100px; background-repeat:no-repeat; float: left; display: table-cell; z-index: 2" value="herbivore"></li>
+			<li id="draggableTiger" style="background-image: url(images/tiger.png); width: 100px; height: 100px; padding: 0.1em; float: left; margin: 10px 10px 0 0; background-size: 100px 100px; background-repeat:no-repeat; float: left; display: table-cell; z-index: 2" value="carnivore"></li>
+			<li id="draggableElephant" style="background-image: url(images/elephant.png); width: 100px; height: 100px; padding: 0.1em; float: left; margin: 10px 10px 0 0; background-size: 100px 100px; background-repeat:no-repeat; float: left; display: table-cell; z-index: 2" value="herbivore"></li>
+			<li id="draggableDog" style="background-image: url(images/dog.png); width: 100px; height: 100px; padding: 0.1em; float: left; margin: 10px 10px 0 0; background-size: 100px 100px; background-repeat:no-repeat; float: left; display: table-cell; z-index: 2" value="carnivore"></li>
+
+		</ul>
+	</div>
+	<div style="display: table-row">
+		<div id="herbivore" class="ui-body ui-body-a ui-corner-all">
+			<p style="text-shadow: 0.1em 0.1em 0.05em #333;margin:0.1em; font-size:150%;">Herbivore</p>
+		</div>
+	</div>
+</div> <!-- DIV TABLE -->
+
+</div> <!-- Container -->
+
+<footer data-role="footer" data-position="fixed">
+	<nav data-role="navbar">
+		<ul>
+			<li><a href="#home" data-icon="home">Home</a></li>
+			<li><a href="#" data-icon="refresh">Reply</a></li>
+			<li><a href="#" data-icon="back">Reload</a></li>
+		</ul>
+	</nav>
+</footer>
+</div> <!-- END OF PAGE -->
+
+
+
+
+    </body>
+</html>
