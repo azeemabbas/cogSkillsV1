@@ -1,31 +1,35 @@
-
-var sql = 'DROP TABLE "concept";';
-transaction.executeSql (sql, undefined, function () { }, error);
-
 var sql = 'CREATE TABLE "concept" ("cID" INTEGER PRIMARY KEY NOT NULL, "uri" TEXT, "image" TEXT, "rdfType" TEXT, "classType" TEXT);';
 transaction.executeSql (sql, undefined, function () { }, error);
-
 var sql = 'INSERT INTO "concept" ("cID","uri","image","rdfType","classType") VALUES ("100012748","http://www.w3.org/2006/03/wn/wn20/instances/synset-animal-noun-1","100012748.png","owl:Class","abstract");';
 transaction.executeSql (sql, undefined, function () { }, error);
 var sql = 'INSERT INTO "concept" ("cID","uri","image","rdfType","classType") VALUES ("101244626","http://www.w3.org/2006/03/wn/wn20/instances/synset-domestic_animal-noun-1","101244626.png","owl:Class","abstract");';
 transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "concept" ("cID","uri","image","rdfType","classType") VALUES ("101250980","http://www.w3.org/2006/03/wn/wn20/instances/synset-herbivore-noun-1","101250980.png","owl:Class","abstract");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "concept" ("cID","uri","image","rdfType","classType") VALUES ("101425787","http://www.w3.org/2006/03/wn/wn20/instances/synset-bird-noun-1","101425787.png","owl:Class","abstract");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "concept" ("cID","uri","image","rdfType","classType") VALUES ("101437263","http://www.w3.org/2006/03/wn/wn20/instances/synset-hen-noun-2","101437263.png","owl:Class","concrete");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "concept" ("cID","uri","image","rdfType","classType") VALUES ("101736248","http://www.w3.org/2006/03/wn/wn20/instances/synset-parrot-noun-1","101736248.png","owl:Class","concrete");';
+transaction.executeSql (sql, undefined, function () { }, error);
 var sql = 'INSERT INTO "concept" ("cID","uri","image","rdfType","classType") VALUES ("101780968","http://www.w3.org/2006/03/wn/wn20/instances/synset-mammal-noun-1","101780968.png","owl:Class","abstract");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "concept" ("cID","uri","image","rdfType","classType") VALUES ("101992546","http://www.w3.org/2006/03/wn/wn20/instances/synset-carnivore-noun-1","101992546.png","owl:Class","abstract");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "concept" ("cID","uri","image","rdfType","classType") VALUES ("102045461","http://www.w3.org/2006/03/wn/wn20/instances/synset-tiger-noun-2","102045461.png","owl:Class","concrete");';
 transaction.executeSql (sql, undefined, function () { }, error);
 var sql = 'INSERT INTO "concept" ("cID","uri","image","rdfType","classType") VALUES ("102315126","http://www.w3.org/2006/03/wn/wn20/instances/synset-cattle-noun-1","102315126.png","owl:Class","concrete");';
 transaction.executeSql (sql, undefined, function () { }, error);
 var sql = 'INSERT INTO "concept" ("cID","uri","image","rdfType","classType") VALUES ("102316119","http://www.w3.org/2006/03/wn/wn20/instances/synset-cow-noun-1","102316119.png","owl:Class","concrete");';
 transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "concept" ("cID","uri","image","rdfType","classType") VALUES ("102329039","http://www.w3.org/2006/03/wn/wn20/instances/synset-goat-noun-1","102329039.png","owl:Class","concrete");';
+transaction.executeSql (sql, undefined, function () { }, error);
 var sql = 'INSERT INTO "concept" ("cID","uri","image","rdfType","classType") VALUES ("102414572","http://www.w3.org/2006/03/wn/wn20/instances/synset-elephant-noun-1","102414572.png","owl:Class","concrete");';
 transaction.executeSql (sql, undefined, function () { }, error);
 var sql = 'INSERT INTO "concept" ("cID","uri","image","rdfType","classType") VALUES ("107510753","http://www.w3.org/2006/03/wn/wn20/instances/synset-wildlife-noun-1","107510753.png","owl:Class","abstract");';
 transaction.executeSql (sql, undefined, function () { }, error);
-
-var sql = 'DROP TABLE "rdfsLabel";';
-transaction.executeSql (sql, undefined, function () { }, error);
-
 var sql = 'CREATE TABLE "rdfsLabel" ("cID" INTEGER, "label" TEXT, "lang" TEXT);';
 transaction.executeSql (sql, undefined, function () { }, error);
-
 var sql = 'INSERT INTO "rdfsLabel" ("cID","label","lang") VALUES ("101780968","Mammal","en");';
 transaction.executeSql (sql, undefined, function () { }, error);
 var sql = 'INSERT INTO "rdfsLabel" ("cID","label","lang") VALUES ("100012748","Animal","en");';
@@ -52,13 +56,32 @@ var sql = 'INSERT INTO "rdfsLabel" ("cID","label","lang") VALUES ("101244626","H
 transaction.executeSql (sql, undefined, function () { }, error);
 var sql = 'INSERT INTO "rdfsLabel" ("cID","label","lang") VALUES ("107510753","Wildlife","en");';
 transaction.executeSql (sql, undefined, function () { }, error);
-
-var sql = 'DROP TABLE "rdfsSubClassOf";';
+var sql = 'INSERT INTO "rdfsLabel" ("cID","label","lang") VALUES ("102045461","Harimau","my");';
 transaction.executeSql (sql, undefined, function () { }, error);
-
+var sql = 'INSERT INTO "rdfsLabel" ("cID","label","lang") VALUES ("102045461","Tiger","en");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "rdfsLabel" ("cID","label","lang") VALUES ("102329039","Goat","en");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "rdfsLabel" ("cID","label","lang") VALUES ("102329039","Kambing","my");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "rdfsLabel" ("cID","label","lang") VALUES ("101992546","Carnivore","en");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "rdfsLabel" ("cID","label","lang") VALUES ("101250980","Herbivore","en");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "rdfsLabel" ("cID","label","lang") VALUES ("101425787","Bird","en");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "rdfsLabel" ("cID","label","lang") VALUES ("101425787","Burung","my");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "rdfsLabel" ("cID","label","lang") VALUES ("101736248","Parrot","en");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "rdfsLabel" ("cID","label","lang") VALUES ("101736248","Burung_nuri","my");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "rdfsLabel" ("cID","label","lang") VALUES ("101437263","Hen","en");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "rdfsLabel" ("cID","label","lang") VALUES ("101437263","Ayam","my");';
+transaction.executeSql (sql, undefined, function () { }, error);
 var sql = 'CREATE TABLE "rdfsSubClassOf" ("subClassCId" INTEGER, "superClassCId" INTEGER);';
 transaction.executeSql (sql, undefined, function () { }, error);
-
 var sql = 'INSERT INTO "rdfsSubClassOf" ("subClassCId","superClassCId") VALUES ("101780968","100012748");';
 transaction.executeSql (sql, undefined, function () { }, error);
 var sql = 'INSERT INTO "rdfsSubClassOf" ("subClassCId","superClassCId") VALUES ("102316119","101780968");';
@@ -75,28 +98,37 @@ var sql = 'INSERT INTO "rdfsSubClassOf" ("subClassCId","superClassCId") VALUES (
 transaction.executeSql (sql, undefined, function () { }, error);
 var sql = 'INSERT INTO "rdfsSubClassOf" ("subClassCId","superClassCId") VALUES ("102316119","101244626");';
 transaction.executeSql (sql, undefined, function () { }, error);
-
-var sql = 'DROP TABLE "owlSameAs";';
+var sql = 'INSERT INTO "rdfsSubClassOf" ("subClassCId","superClassCId") VALUES ("102045461","107510753");';
 transaction.executeSql (sql, undefined, function () { }, error);
-
+var sql = 'INSERT INTO "rdfsSubClassOf" ("subClassCId","superClassCId") VALUES ("102329039","101244626");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "rdfsSubClassOf" ("subClassCId","superClassCId") VALUES ("101992546","100012748");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "rdfsSubClassOf" ("subClassCId","superClassCId") VALUES ("102045461","101992546");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "rdfsSubClassOf" ("subClassCId","superClassCId") VALUES ("101250980","100012748");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "rdfsSubClassOf" ("subClassCId","superClassCId") VALUES ("102414572","101250980");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "rdfsSubClassOf" ("subClassCId","superClassCId") VALUES ("102329039","101250980");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "rdfsSubClassOf" ("subClassCId","superClassCId") VALUES ("102316119","101250980");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "rdfsSubClassOf" ("subClassCId","superClassCId") VALUES ("101425787","100012748");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "rdfsSubClassOf" ("subClassCId","superClassCId") VALUES ("101736248","101425787");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "rdfsSubClassOf" ("subClassCId","superClassCId") VALUES ("101437263","101425787");';
+transaction.executeSql (sql, undefined, function () { }, error);
 var sql = 'CREATE TABLE "owlSameAs" ("cID" INTEGER, "sameAsCId" INTEGER);';
 transaction.executeSql (sql, undefined, function () { }, error);
-
 var sql = 'INSERT INTO "owlSameAs" ("cID","sameAsCId") VALUES ("102316119","102315126");';
 transaction.executeSql (sql, undefined, function () { }, error);
-
-var sql = 'DROP TABLE "owlDisjointWith";';
+var sql = 'CREATE TABLE "owlDisjointWith" ( "rID" INTEGER, "cID" INTEGER NOT NULL, "disjointClassCId" INTEGER NOT NULL, PRIMARY KEY ("cID", "disjointClassCId"));';
 transaction.executeSql (sql, undefined, function () { }, error);
-
-var sql = 'CREATE TABLE "owlDisjointWith" ("cID" INTEGER NOT NULL, "disjointClassCId" INTEGER NOT NULL, PRIMARY KEY ("cID", "disjointClassCId"));';
+var sql = 'INSERT INTO "owlDisjointWith" ("rID","cID","disjointClassCId") VALUES ("1","107510753","101244626");';
 transaction.executeSql (sql, undefined, function () { }, error);
-
-var sql = 'INSERT INTO "owlDisjointWith" ("cID","disjointClassCId") VALUES ("107510753","101244626");';
+var sql = 'INSERT INTO "owlDisjointWith" ("rID","cID","disjointClassCId") VALUES ("2","101250980","101992546");';
 transaction.executeSql (sql, undefined, function () { }, error);
-var sql = 'INSERT INTO "owlDisjointWith" ("cID","disjointClassCId") VALUES ("101244626","107510753");';
+var sql = 'INSERT INTO "owlDisjointWith" ("rID","cID","disjointClassCId") VALUES ("3","101780968","101425787");';
 transaction.executeSql (sql, undefined, function () { }, error);
-
-var sql = 'DROP INDEX "sqlite_autoindex_owlDisjointWith_1";';
-transaction.executeSql (sql, undefined, function () { }, error);
-
-
