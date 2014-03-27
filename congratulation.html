@@ -18,7 +18,17 @@
 
 	$(document).ready(function() {
 
+
 	});
+	$(function() {
+		$('#btnContinue').click(function() {
+			$("body").delay( 800 ).fadeOut( 1000,  newpage);
+			
+		});
+	});
+	function newpage() {
+		window.location = "classificationDynamic.html";
+	}
 	</script>
    </head>
 <body>
@@ -29,29 +39,12 @@
 </header>
 
 <article data-role="content">
-	<ul data-role="listview">
-		<li>
-			<a href="classificationDynamic.html">
-				<img src="images/classification.png" alt="Classification" />
-				<h1>Classification</h1>					
-					<p>Classification, defined as the systematic arrangment of objects into groups according to established criteria, involves categorizing, sorting and grouping.</p>
-			</a>
-		</li>
-		<li>
-			<a href="relatednessDynamic.html">
-				<img src="images/relatedness.png" alt="RelatedNess" />
-				<h1>Relatedness</h1>
-					<p>The cognitive skills of Relatedness is the most basic skills for development of the ability to recognize an object feature, and collect the objects according to features that have been sure.</p>
-			</a>
-		</li>
-		<li>
-			<a href="#cow">
-				<img src="images/information.png" alt="Instructions" />
-				<h1>Instructions</h1>
-					<p>Drag or Select Objects to Pass the Tasks, click for more details.</p>
-			</a>
-		</li>
-	</ul>
+	<div id="herbivore" class="ui-body ui-body-a ui-corner-all">
+			<p style="text-shadow: 0.1em 0.1em 0.05em #333;margin:0.1em; font-size:150%;">Well Done!</p>
+			<img src="images/congratulation.png" align="center" />
+			<button id="btnContinue">Continue</button>
+			<button>Go Home</button>
+	</div>
 </article>
 
 

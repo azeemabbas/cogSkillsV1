@@ -8,6 +8,7 @@
     
 	<link href="css/jquery-ui.css" rel="stylesheet" />
 	<link rel="stylesheet" href="css/jquery.mobile-1.4.1.min.css" />
+	
     
     <script src="js/libs/jquery-1.9.1.min.js"></script>
     <script src="js/libs/jquery-ui.js"></script>
@@ -22,14 +23,10 @@
 
 
   <style>
-				
-#carnivore { }
-			
-#herbivore { width: 550px; height: 150px; padding: 0.5em; float: left; margin: 10px; border-style: dashed; display: table-cell;
-			float: left; position:absolute;z-index: 1;background-image: url(images/grass.png); background-repeat: no-repeat; background-position: left;}
 			
 .droppedCorrect{background-color: #008000; border-radius: 15px; }
-.droppedWrong{background-color: #FF3333; border-radius: 15px; }			
+.droppedWrong{background-color: #FF3333; border-radius: 15px; }
+
 </style>
   </head>
   <body>
@@ -101,7 +98,6 @@ $(document).ready(function() {
 	    },error);
 	});
 	
-
 	$.ionSound({
             sounds: [
                 "wrong",
@@ -121,6 +117,7 @@ function BoxItems(sql,val){
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//alert(sql);
 	var html = "";
+	var htmlStar = "";
 	db.transaction (function (transaction) {
 	    	    
 	    transaction.executeSql (sql, undefined,function (transaction, result) {
@@ -131,12 +128,17 @@ function BoxItems(sql,val){
 	        {
 	          var row = result.rows.item (i);
 	          html += '<li id="'+row.cID+'" style="background-image: url(images/'+row.image+'); width: 100px; height: 100px; padding: 0.1em; float: left; margin: 10px 10px 0 0; background-size: 100px 100px; background-repeat:no-repeat; float: left; display: table-cell; z-index: 2" value="'+val+'"></li>';
+	          htmlStar += '<li id="li'+row.cID+'" style="display:inline;" value="0"><img id="img'+row.cID+'" src="images/stargray.png"></li>';
 	        }
 	      } else {
 	        html += "<li> No Item </li>";
 	      }
+		
 		$("#draggable").append(html);
 		draggableActive();
+		
+		$("#stars").append(htmlStar);
+
 	  	},error);
 	});
 	
@@ -165,16 +167,24 @@ function getPhoneGapPath() {
     
 
 };
- 
- 
-$(function() {
-	
 
-	//$( "#draggableElephant" ).draggable();
-	//$( "#draggableTiger" ).draggable();
-	//$( "#draggableCow" ).draggable();
-	//$( "#draggableDog" ).draggable();
-	
+function checkScore(){
+	var rVal = true;
+	$("#stars li").each(function(indx,li) {
+		if($(li).attr("value")=="0") rVal = false;
+	});
+
+	if(rVal==true) {
+		$("body").delay( 800 ).fadeOut( 2000,  newpage);
+	} //end if
+}
+
+
+function newpage() {
+	window.location = "congratulation.html";
+}
+
+$(function() {
 	
 	$("#dropable1").droppable({
      drop: function(event, ui) {
@@ -184,11 +194,17 @@ $(function() {
                // do something with the draggable item
                var dropV = $(this).attr('id');
                var dragV = $(ui.draggable).attr('value');
+               var dragID = $(ui.draggable).attr('id');
+               
                if(dropV == dragV){               
                		$(ui.draggable).removeClass();
                		$(ui.draggable).addClass( "droppedCorrect" );
                		$.ionSound.play("bell_ring");
+               		$("#img"+dragID).attr("src","images/star.png");
+               		$("#li"+dragID).attr("value","1");
+               		checkScore();
                		$(ui.draggable).draggable('disabled',1);
+               		
                		
                } else {
 			   		$(ui.draggable).addClass( "droppedWrong" );
@@ -205,11 +221,16 @@ $(function() {
                // do something with the draggable item
                var dropV = $(this).attr('id');
                var dragV = $(ui.draggable).attr('value');
+               var dragID = $(ui.draggable).attr('id');
                if(dropV == dragV){
                		$(ui.draggable).removeClass();               
                		$(ui.draggable).addClass( "droppedCorrect" );
                		$.ionSound.play("bell_ring");
+               		$("#img"+dragID).attr("src","images/star.png");
+               		$("#li"+dragID).attr("value","1");
+               		checkScore();
                		$(ui.draggable).draggable('disabled',1);
+               		
                		
                } else {
 			   		$(ui.draggable).addClass( "droppedWrong" );
@@ -242,8 +263,16 @@ $(function() {
 		</div>
 	</div>
 </div> <!-- DIV TABLE -->
-
+<div style="display: table-row">
+	<p>Score</p>
+	<ul id="stars">
+		
+	</ul>
+</div>
 </div> <!-- Container -->
+
+
+
 
 <footer data-role="footer" data-position="fixed">
 	<nav data-role="navbar">
