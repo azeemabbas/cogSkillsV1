@@ -1,3 +1,14 @@
+var sql = 'CREATE TABLE "concept" ("cID" INTEGER PRIMARY KEY NOT NULL, "uri" TEXT, "image" TEXT, "rdfType" TEXT, "classType" TEXT);';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'CREATE TABLE "rdfsLabel" ("cID" INTEGER, "label" TEXT, "lang" TEXT);';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'CREATE TABLE "rdfsSubClassOf" ("subClassCId" INTEGER, "superClassCId" INTEGER);';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'CREATE TABLE "owlSameAs" ("cID" INTEGER, "sameAsCId" INTEGER);';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'CREATE TABLE "owlDisjointWith" ( "rID" INTEGER, "cID" INTEGER NOT NULL, "disjointClassCId" INTEGER NOT NULL, PRIMARY KEY ("cID", "disjointClassCId"));';
+transaction.executeSql (sql, undefined, function () { }, error);
+
 var sql = 'INSERT INTO "concept" ("cID","uri","image","rdfType","classType") VALUES ("100012748","http://www.w3.org/2006/03/wn/wn20/instances/synset-animal-noun-1","100012748.png","owl:Class","abstract");';
 transaction.executeSql (sql, undefined, function () { }, error);
 var sql = 'INSERT INTO "concept" ("cID","uri","image","rdfType","classType") VALUES ("101244626","http://www.w3.org/2006/03/wn/wn20/instances/synset-domestic_animal-noun-1","101244626.png","owl:Class","abstract");';
