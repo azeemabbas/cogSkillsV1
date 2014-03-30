@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>CogSkills - Cognitive Skill Tutoring App</title> 
+
+    
+	<link href="css/jquery-ui.css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.1.min.css" />
+    
+    <script src="js/libs/jquery-1.9.1.min.js"></script>
+    <script src="js/libs/jquery-ui.js"></script>
+    <script src="js/libs/jquery-ui.touch-punch.js"></script>
+	<script src="js/libs/ion.sound.js"></script>
+	<script src="js/libs/jquery.mobile-1.4.1.min.js"></script>
+<style>
+
+	#list1 .ui-selecting { background: #FECA40; }
+	#list1 .ui-selected { background: #F39814; color: white; }
+	#list1 { list-style-type: none; margin: 0; padding: 0; width: 130px; }
+	#list1 li { margin: 3px; padding: 1px; float: left; width: 130px; height: 130px; font-size: 4em; text-align: center; }
+	
+	#list2 .ui-selecting { background: #FECA40; }
+	#list2 .ui-selected { background: #F39814; color: white; }
+	#list2 { list-style-type: none; margin: 0; padding: 0; width: 130px; }
+	#list2 li { margin: 3px; padding: 1px; float: left; width: 130px; height: 130px; font-size: 4em; text-align: center; }
+			
+	.droppedCorrect{background-color: #008000; border-radius: 15px; }
+	.droppedWrong{background-color: #FF3333; border-radius: 15px; }
+
+	li {
+	    height : 130px;
+	    border: 1px #cccccc solid;
+	    padding-top: 5px;
+	    list-style-type: none;
+	}
+	li div {
+	    height:45px;
+	    display:table-cell;
+	    vertical-align : middle;
+	}			
+	
+	.glow {
+	    -webkit-box-shadow:0 0 20px blue; 
+	    -moz-box-shadow: 0 0 20px blue; 
+	    box-shadow:0 0 20px blue;
+	}
+</style>
+
+</head>
+<body>
+<div data-role="page" id="home">
+<header data-role="header">
+	<h1>CogSkills</h1>
+	<a href="index.html">Home</a>
+</header>
+<article data-role="content">
+
+<div style="display: table">
+	<div style="display: table-row">
+		<div style="display: table-cell">
+			<ul id="list1">
+				<li class="ui-widget-content" style="background-image: url('images/102316119.png'); background-repeat: no-repeat;" value="1"></li>
+				<li class="ui-widget-content" style="background-image: url('images/102045461.png'); background-repeat: no-repeat;" value="2"></li>
+				<li class="ui-widget-content" style="background-image: url('images/frog.png'); background-repeat: no-repeat;" value="3"></li>
+
+			</ul>
+		</div>
+		<div style="display: table-cell;padding-left: 20px;">
+			<ul id="list2">
+				<li class="ui-widget-content" style="background-image: url('images/insect.png'); background-repeat: no-repeat;" value="1"></li>
+				<li class="ui-widget-content" style="background-image: url('images/101250980.png'); background-repeat: no-repeat;" value="2"></li>
+				<li class="ui-widget-content" style="background-image: url('images/101992546.png'); background-repeat: no-repeat;" value="3"></li>
+
+			</ul>
+		</div>
+	</div>
+</div> <!-- DIV TABLE -->
+
+</article>
+
+
+
+<footer data-role="footer" data-position="fixed">
+	<nav data-role="navbar">
+		<ul>
+			<li><a href="#home" data-icon="home">Home</a></li>
+			<li><a href="#" data-icon="refresh">Reply</a></li>
+			<li><a href="#" data-icon="back">Reload</a></li>
+		</ul>
+	</nav>
+</footer>
+</div>
+
+
+</body>
+</html>
