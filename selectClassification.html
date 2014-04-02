@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>CogSkills - Cognitive Skill Tutoring App</title> 
+
+    
+	<link href="css/jquery-ui.css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.1.min.css" />
+    
+    <script src="js/libs/jquery-1.9.1.min.js"></script>
+    <script src="js/libs/jquery-ui.js"></script>
+    <script src="js/libs/jquery-ui.touch-punch.js"></script>
+	<script src="js/libs/ion.sound.js"></script>
+	<script src="js/libs/jquery.mobile-1.4.1.min.js"></script>
+	<script >
+
+	$(document).ready(function() {
+
+	});
+	
+	$(function() {
+		$('#button1').click(function() {
+			$("body").delay( 800 ).fadeOut( 1000,  mammal);
+		});
+	});
+
+	function mammal() { window.location = "mammal.html"; }
+	
+	</script>
+
+	<style type="text/css">
+	#image-container {
+    	display: inline-block;
+    	position: relative;
+	}
+
+	#btnHome { position: absolute; left: 10px; top: 20px; width: 50px; }
+
+	#button1 { position: absolute; left: 10px; top: 95px; width: 150px; height: 140px;  }
+	#button2 { position: absolute; left: 170px; top: 95px; width: 150px; height: 140px; }
+	#button3 { position: absolute; left: 330px; top: 95px; width: 150px; height: 140px; }
+
+	#button4 { position: absolute; left: 10px; top: 240px; width: 150px; height: 140px;  }
+	#button5 { position: absolute; left: 170px; top: 240px; width: 150px; height: 140px; }
+	#button6 { position: absolute; left: 330px; top: 240px; width: 150px; height: 140px; }
+
+	#button7 { position: absolute; left: 10px; top: 385px; width: 150px; height: 140px;  }
+	#button8 { position: absolute; left: 170px; top: 385px; width: 150px; height: 140px; }
+	#button9 { position: absolute; left: 330px; top: 385px; width: 150px; height: 140px; }
+	
+	p { text-shadow: 1px 1px 1px #000, 3px 3px 5px blue; }
+
+	#heading {
+	    color: red;
+	    position: relative;
+	    left: 230px;
+	    top: -70px;
+	    width: 200px;
+	}
+	</style>
+   </head>
+<body>
+<div data-role="page" id="home"  style="background-color:#4fcb3f;">
+	<div id="image-container">
+		<img src="images/header.png"  />
+		<p id="heading">CogSkills</p>
+		<a href="index.html" data-role="button" data-icon="home" id="btnHome">Home</a> 
+
+		<button id="button1" ><img src="images/101780968.png"><br />Mammals</button>
+		<button id="button2" ><img src="images/101425787.png"><br />Birds</button>
+		<button id="button3" ><img src="images/101582405.png"><br />Reptiles</button>
+
+		<button id="button4" ><img src="images/102422955.png"><br />Fishes</button>
+		<button id="button5" ><img src="images/101549068.png"><br />Amphibians</button>
+		<button id="button6" ><img src="images/101992546.png"><br />Carnivore</button>
+
+		<button id="button7" ><img src="images/107510753.png"><br />Wild Animals</button>
+		<button id="button8" ><img src="images/101244626.png"><br />Domestic Animals</button>
+		<button id="button9" ><img src="images/101250980.png"><br />Herbivore</button>
+
+	</div>
+
+</div> <!-- END OF PAGE -->
+
+
+</body>
+</html>

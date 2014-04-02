@@ -21,14 +21,14 @@
 	});
 	
 	$(function() {
-		$('#star-button').click(function() {
+		$('#button1').click(function() {
 			$("body").delay( 800 ).fadeOut( 1000,  newpage);
 			
 		});
 	});
 
 	function newpage() {
-		window.location = "select.html";
+		window.location = "selectClassification.html";
 	}
 	</script>
 
@@ -38,19 +38,32 @@
     	position: relative;
 	}
 
-	#star-button {
-	    position: absolute;    
-	    left: 300px;
-	    top: 295px;
-	    width: 150px;
+	#btnHome { position: absolute; left: 10px; top: 20px; width: 50px; }
+	
+	#button1 { position: absolute; left: 180px; top: 95px; width: 200px; text-align: middle; }
+	#button2 { position: absolute; left: 180px; top: 285px; width: 200px; }
+
+	
+	p { text-shadow: 1px 1px 1px #000, 3px 3px 5px blue; }
+
+	#heading {
+	    color: red;
+	    position: relative;
+	    left: 230px;
+	    top: -70px;
+	    width: 200px;
 	}
 	</style>
    </head>
 <body>
-<div data-role="page" id="home"  style="background-color:#66960b;">
+<div data-role="page" id="home"  style="background-color:#4fcb3f;">
 	<div id="image-container">
-		<img src="images/splashscreen.png"  />
-		<button id="star-button" >Start</button>
+		<img src="images/header.png"  />
+		<p id="heading">CogSkills</p>
+		<a href="index.html" data-role="button" data-icon="home" id="btnHome">Home</a> 
+		
+		<button id="button1" ><img src="images/learning.png"><br />Learning</button>
+		<button id="button2" ><img src="images/testing.png"><br />Test</button>
 	</div>
 
 
