@@ -23,7 +23,32 @@
 	$(function() {
 		$('#button1').click(function() {
 			$("body").delay( 800 ).fadeOut( 1000,  newpage);
-			
+		});
+
+		$('#milkInfo').click(function() {
+			if($("#imgMilkGls").length){
+				$('#imgMilkGls').remove();
+				$('#milkInfo').css("height","40px");
+				$('#milkInfo').css("opacity","0.7");
+			}else {
+				$('#milkInfo').css("height","200px");
+				$('#milkInfo').css("opacity","0.9");
+				$('#milkInfo').append("<img id='imgMilkGls'  src='images/milkglass.png'>");
+			}
+		});
+
+		$('#backBoneInfo').click(function() {
+			if($("#imgCowSk").length){
+				$("#imgCowSk").remove();
+				$('#backBoneInfo').css("height","40px");
+				$('#backBoneInfo').css("opacity","0.7");
+				$('#backBoneInfo').css("top","80px");
+			} else {
+				$('#backBoneInfo').css("height","180px");
+				$('#backBoneInfo').css("opacity","0.9");
+				$('#backBoneInfo').css("top","-50px");
+				$('#backBoneInfo').prepend("<img id='imgCowSk' src='images/cowSkeleton.png'>");
+			}
 		});
 	});
 
@@ -34,19 +59,23 @@
 
 	<style type="text/css">
 	#container { display: inline-block; position: relative; }
-	#btnHome { position: absolute; left: 10px; top: 20px; width: 50px; }
-	#heading { color: red; position: relative; left: 230px; top: -70px; width: 200px; }
-	p { text-shadow: 1px 1px 1px #000, 3px 3px 5px blue; }
+	#btnNext { position: absolute; left: 10px; bottom: 10px; width: 100px; }
+	#btnHelp { position: absolute; left: 220px; bottom: 10px; width: 70px; }
+	#btnBack { position: absolute; left: 410px; bottom: 10px; width: 70px; }
+	
 
-	 .circle{
-     width: 100px;
-     height: 100px;
-     border-radius: 50%;
-     background-color: blue;
-     right:130px;
-     position: absolute;
-  }
+	#heading { color: red; position: relative; left: 200px; top: -185px; width: 200px; font-size: 36px; }
+	h1{ color: red; position: relative; left: 10px; top: -150px; width: 200px; font-size: 36px; text-shadow: 1px 1px 1px #000;}
+	p { text-shadow: 1px 1px 1px #000, 3px 3px 5px blue; position: relative;}
+
+	#mainImg{position: relative; left: 10px; top: -165px; }
+
+	.circle{ width: 200px; height: 200px; border-radius: 50%; background-color: blue; right:130px; position: absolute;}
 	.wrapper {height:100px; width:100px; border-radius:100px; border:4px solid white; overflow:hidden; left: 200px; top:120px; position: absolute; background-color: white;}​
+
+	#imgMilk{ left: 100px; top: 50px; z-index: 3;}
+	#milkInfo{ position: absolute; top: 260px; left: 185px; font-size: 16px; color: white; z-index: 1;  background-color: #000; width: 200px; border: 2px 2px 2px 2px; border-color: #FFF; opacity:0.7; text-align: middle;}
+	#backBoneInfo{ position: absolute; top: 80px; left: 55px; font-size: 16px; color: white; z-index: 1;  background-color: #000; width: 220px; border: 2px 2px 2px 2px; border-color: #FFF; opacity:0.7; text-align: middle;}
 
 	 
 	</style>
@@ -56,18 +85,23 @@
 	<div id="container">
 		<img src="images/header.png"  />
 		<p id="heading">CogSkills</p>
-		<a href="index.html" data-role="button" data-icon="home" id="btnHome">Home</a> 
+		<h1>Mammals</h1>
+		<a href="index.html" data-role="button" data-icon="forward" id="btnNext" onclick="">Do Exercise</a> 
+		<a href="index.html" data-role="button" data-icon="info" id="btnHelp">Help</a> 
+		<a href="index.html" data-role="button" data-icon="back" id="btnBack" onclick="javascript:history.go(-1);">Go Back</a> 
 
-	<div class="circle">
-		<div class="wrapper">
-	    	<img src="images/101780968.png" />
+		<!--<div id="mainImg">
+			<img src="images/mammal.png">
+			<div id="imgMilk">
+				<img src="images/information.png" width="32" height="32"/>
+			</div>
+		</div>-->
+		<div style="position: relative; left: 10; top: -165;" id="mainImg">
+  			<img src="images/mammal.png" style="position: relative; top: 0; left: 0;"/>
+  			<div id="milkInfo" class="ui-body ui-body-a ui-corner-all"><img text-align="middle" src="images/information1.png"  width="32" height="32" /><span>Mammals produce Milk</span></div>
+  			<div id="backBoneInfo" class="ui-body ui-body-a ui-corner-all"><span>Mammals have BackBone</span><img text-align="middle" src="images/information1.png"  width="32" height="32" /></div>
 		</div>
 	</div>
-	</div>
-
-	
-
-
 
 </div> <!-- END OF PAGE -->
 

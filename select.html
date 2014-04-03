@@ -38,21 +38,17 @@
     	position: relative;
 	}
 
-	#btnHome { position: absolute; left: 10px; top: 20px; width: 50px; }
-	
-	#button1 { position: absolute; left: 180px; top: 95px; width: 200px; text-align: middle; }
-	#button2 { position: absolute; left: 180px; top: 285px; width: 200px; }
+	#btnHome { position: absolute; left: 10px; bottom: -400px; width: 70px; }
+	#btnHelp { position: absolute; left: 420px; bottom: -400px; width: 70px; }
+
+	#button1 { position: absolute; left: 180px; top: 160px; width: 200px; text-align: middle; }
+	#button2 { position: absolute; left: 180px; top: 370px; width: 200px; }
 
 	
 	p { text-shadow: 1px 1px 1px #000, 3px 3px 5px blue; }
 
-	#heading {
-	    color: red;
-	    position: relative;
-	    left: 230px;
-	    top: -70px;
-	    width: 200px;
-	}
+	#heading { color: red; position: relative; left: 200px; top: -185px; width: 200px; font-size: 36px; }
+
 	</style>
    </head>
 <body>
@@ -60,14 +56,12 @@
 	<div id="image-container">
 		<img src="images/header.png"  />
 		<p id="heading">CogSkills</p>
-		<a href="index.html" data-role="button" data-icon="home" id="btnHome">Home</a> 
+		<a href="index.html" data-role="button" data-icon="back" id="btnHome" onclick="javascript:history.go(-1);">Go Back</a> 
+		<a href="index.html" data-role="button" data-icon="info" id="btnHelp">Help</a> 
 		
 		<button id="button1" ><img src="images/learning.png"><br />Learning</button>
 		<button id="button2" ><img src="images/testing.png"><br />Test</button>
 	</div>
-
-
-
 
 
 </div> <!-- END OF PAGE -->

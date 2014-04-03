@@ -33,6 +33,10 @@
 	</script>
 
 	<style type="text/css">
+	
+	#btnCrd { position: absolute; left: 450px; bottom: -200px; width: 70px; }
+	#btnHelp { position: absolute; left: 20px; bottom: -200px; width: 70px; }
+
 	#image-container {
     	display: inline-block;
     	position: relative;
@@ -40,8 +44,8 @@
 
 	#star-button {
 	    position: absolute;    
-	    left: 300px;
-	    top: 295px;
+	    left: 200px;
+	    top: 445px;
 	    width: 150px;
 	}
 	</style>
@@ -50,7 +54,10 @@
 <div data-role="page" id="home"  style="background-color:#66960b;">
 	<div id="image-container">
 		<img src="images/splashscreen.png"  />
-		<button id="star-button" >Start</button>
+		<a href="index.html" data-role="button" data-icon="info" id="btnHelp">Help</a>
+		<a href="index.html" data-role="button" data-icon="back" id="btnCrd" onclick="javascript:history.go(-1);">Credits</a> 
+		
+		<button id="star-button" ><img src="images/start.png" /></button>
 	</div>
 
 
