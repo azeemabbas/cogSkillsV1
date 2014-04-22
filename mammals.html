@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>CogSkills - Cognitive Skill Tutoring App</title> 
+
+    
+	<link href="css/jquery-ui.css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.1.min.css" />
+	<link rel="stylesheet" href="css/bjqs.css">
+	<link rel="stylesheet" href="css/demo.css">
+    
+    <script src="js/libs/jquery-1.9.1.min.js"></script>
+    <script src="js/libs/jquery-ui.js"></script>
+    <script src="js/libs/jquery-ui.touch-punch.js"></script>
+	<script src="js/libs/ion.sound.js"></script>
+	<script src="js/libs/jquery.mobile-1.4.1.min.js"></script>
+	<script src="js/libs/bjqs-1.3.min.js"></script>
+	<script >
+
+	$(document).ready(function() {
+	    $('#banner-fade').bjqs({
+	        height      : 100,
+	        width       : 400,
+	        responsive  : false,
+	        showcontrols : true,
+	        showmarkers : false,
+	        usecaptions : false,
+	        automatic : false
+	     });
+	});
+	
+	$(function() {
+		$('#button1').click(function() {
+			$("body").delay( 800 ).fadeOut( 1000,  newpage);
+			
+		});
+
+		$('#milkInfo').click(function() {
+			if($("#imgMilkGls").length){
+				$('#imgMilkGls').remove();
+				$('#milkInfo').css("height","40px");
+				$('#milkInfo').css("opacity","0.7");
+			}else {
+				$('#milkInfo').css("height","200px");
+				$('#milkInfo').css("opacity","0.9");
+				$('#milkInfo').append("<img id='imgMilkGls'  src='images/milkglass.png'>");
+			}
+		});
+
+	});
+
+	function newpage() {
+		window.location = "selectClassification.html";
+	}
+	</script>
+
+	<style type="text/css">
+	#image-container {
+    	display: inline-block;
+    	position: relative;
+    	height: 1000px;
+	}
+
+	#btnHelp { position: absolute; left: 150px; bottom: 20px; width: 128px; }
+	#btnBack { position: absolute; left: 300px; bottom: 20px; width: 128px; }
+
+
+	
+	p { text-shadow: 1px 1px 1px #000, 3px 3px 5px blue; }
+
+	#heading { color: red; position: relative; left: 20px; top: -910px; width: 700px; font-size: 36px; }
+	
+
+	#mainImg{position: absolute; left: 10px; top: 200px; }
+
+
+	#imgMilk{ left: 100px; top: 50px; z-index: 3;}
+	#milkInfo{ position: absolute; top: 260px; left: 185px; font-size: 16px; color: white; z-index: 1;  background-color: #000; width: 200px; border: 2px 2px 2px 2px; border-color: #FFF; opacity:0.7; text-align: middle;}
+
+	#practice{position: absolute;top:550px; left: 70px;}
+
+
+	</style>
+   </head>
+<body>
+<div data-role="page" id="home"  style="background-color:#4fcb3f;">
+	<div id="image-container">
+		<img src="images/splashscreen2.png"  />
+		<p id="heading">Animal Type: Mammals</p>
+		<img src="images/btnHelp.png" id="btnHelp">
+		<img src="images/btnBack.png" id="btnBack" onclick="javascript:history.go(-1);">
+		
+
+		<div style="" id="mainImg">
+  			<img src="images/mammal.png" style="position: relative; top: 0; left: 0;"/>
+  			<div id="milkInfo" class="ui-body ui-body-a ui-corner-all"><img text-align="middle" src="images/information1.png"  width="32" height="32" /><span>Mammals produce Milk</span></div>
+		</div>
+
+	
+		<div id="practice">
+			<div id="banner-fade">
+
+	        <!-- start Basic Jquery Slider -->
+	        <ul class="bjqs">
+	          <li><img src="images/banner01.jpg" title="Automatically generated caption"></li>
+	          <li><img src="images/banner02.jpg" title="Automatically generated caption"></li>
+	          <li><img src="images/banner03.jpg" title="Automatically generated caption"></li>
+	        </ul>
+	        <!-- end Basic jQuery Slider -->
+
+	      </div>
+	    </div>
+
+	</div>
+
+
+</div> <!-- END OF PAGE -->
+
+
+</body>
+</html>

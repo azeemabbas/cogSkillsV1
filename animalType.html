@@ -21,7 +21,7 @@
 	});
 	
 	$(function() {
-		$('#boxAnimalType').click(function() {
+		$('#boxMammal').click(function() {
 			$("body").delay( 800 ).fadeOut( 1000,  newpage);
 			
 		});
@@ -29,7 +29,7 @@
 	});
 
 	function newpage() {
-		window.location = "animalType.html";
+		window.location = "mammals.html";
 	}
 	</script>
 
@@ -50,12 +50,13 @@
 
 	.box{position: absolute; width:80%;	height:100px; background:#FFF; margin:20px auto; border-radius:15px; box-shadow: 3px 3px 5px #888888;border:1px solid #CCC; opacity: 0.85;}
 	.box h3{ text-align:center; position:relative; top: -95px; left: 20px; text-shadow: 2px 0 0 #CCC, -2px 0 0 #CCC, 0 2px 0 #CCC, 0 -2px 0 #CCC, 1px 1px #CCC, -1px -1px 0 #CCC, 1px -1px 0 #CCC, -1px 1px 0 #CCC; font-size: 28px;}
-	.box img{ height: 95px;}
+	.box img{ height: 95px; width: 35%;}
 
 
-	.animalType {left: 50px; top: 210px;}
-	.animalFood {left: 50px; top: 350px;}
-	.animalHabitate{left: 50px; top: 500px;}
+	.boxMammal {left: 50px; top: 210px;}
+	.boxBirds {left: 50px; top: 350px;}
+	.boxReptiles{left: 50px; top: 500px;}
+	.boxAmphibians{left: 50px; top: 650px;}
 
 	</style>
    </head>
@@ -63,10 +64,11 @@
 <div data-role="page" id="home"  style="background-color:#4fcb3f;">
 	<div id="image-container">
 		<img src="images/splashscreen2.png"  />
-<p id="heading">Please Select an Option</p>
-		<div id="boxAnimalType" class="box animalType"><img src="images/101780968.png"><h3>Animal Types</h3></div>
-		<div id="boxAnimalFood" class="box animalFood"><img src="images/foodchain.png"><h3>Animal Food Chain</h3></div>
-		<div id="boxAnimalHabitate" class="box animalHabitate"><img src="images/101244626.png"><h3>Animal Habitate</h3></div>
+<p id="heading">Animal Types:</p>
+		<div id="boxMammal" class="box boxMammal"><img src="images/101780968.png"><h3>Mammals</h3></div>
+		<div id="boxBirds" class="box boxBirds"><img src="images/101425787.png"><h3>Birds</h3></div>
+		<div id="boxReptiles" class="box boxReptiles"><img src="images/101582405.png"><h3>Reptiles</h3></div>
+		<div id="boxAmphibians" class="box boxAmphibians"><img src="images/101549068.png"><h3>Amphibians</h3></div>
 
 
 

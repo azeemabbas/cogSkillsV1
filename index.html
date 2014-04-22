@@ -45,7 +45,7 @@
 	#star-button {
 	    position: absolute;    
 	    left: 200px;
-	    top: 445px;
+	    top: 700px;
 	    width: 150px;
 	}
 	body {
@@ -61,14 +61,15 @@
 	.ui-content{
 	    background: transparent;
 	}
+	#btnHelp { position: absolute; left: 220px; bottom: 20px; width: 128px; }
 	</style>
    </head>
 <body>
 <div data-role="page" id="home"  style="background-color:#66960b;">
 	<div id="image-container">
 		<img src="images/splashscreen1.png"  />
-		<a href="index.html" data-role="button" data-icon="info" id="btnHelp">Help</a>
-		<a href="index.html" data-role="button" data-icon="back" id="btnCrd" onclick="javascript:history.go(-1);">Credits</a> 
+		<img src="images/btnHelp.png" id="btnHelp">
+		
 		
 		<button id="star-button" ><img src="images/start.png" /></button>
 	</div>

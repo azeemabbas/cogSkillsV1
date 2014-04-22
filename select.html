@@ -25,6 +25,7 @@
 			$("body").delay( 800 ).fadeOut( 1000,  newpage);
 			
 		});
+
 	});
 
 	function newpage() {
@@ -38,8 +39,8 @@
     	position: relative;
 	}
 
-	#btnHome { position: absolute; left: 10px; bottom: -400px; width: 70px; }
-	#btnHelp { position: absolute; left: 420px; bottom: -400px; width: 70px; }
+	#btnHelp { position: absolute; left: 150px; bottom: 20px; width: 128px; }
+	#btnBack { position: absolute; left: 300px; bottom: 20px; width: 128px; }
 
 	#button1 { position: absolute; left: 180px; top: 160px; width: 200px; text-align: middle; }
 	#button2 { position: absolute; left: 180px; top: 370px; width: 200px; }
@@ -55,8 +56,8 @@
 <div data-role="page" id="home"  style="background-color:#4fcb3f;">
 	<div id="image-container">
 		<img src="images/splashscreen2.png"  />
-		<a href="index.html" data-role="button" data-icon="back" id="btnHome" onclick="javascript:history.go(-1);">Go Back</a> 
-		<a href="index.html" data-role="button" data-icon="info" id="btnHelp">Help</a> 
+		<img src="images/btnHelp.png" id="btnHelp">
+		<img src="images/btnBack.png" id="btnBack" onclick="javascript:history.go(-1);">
 		
 		<button id="button1" ><img src="images/learning.png"><br />Learning</button>
 		<button id="button2" ><img src="images/testing.png"><br />Test</button>
