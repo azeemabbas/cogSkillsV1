@@ -21,16 +21,16 @@
 	});
 	
 	$(function() {
-		$('#boxMammal').click(function() {
-			$("body").delay( 800 ).fadeOut( 1000,  newpage);
-			
-		});
+		$('#boxMammal').click(function() { 	$("body").delay( 800 ).fadeOut( 1000,  newpageMammal);	});
+		$('#boxBirds').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageBirds);	});
+		$('#boxFishes').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageFishes);	});
 
 	});
 
-	function newpage() {
-		window.location = "mammals.html";
-	}
+	function newpageMammal() { window.location = "mammals.html"; }
+	function newpageBirds() { window.location = "birds.html"; }
+	function newpageFishes() { window.location = "fishes.html"; }
+
 	</script>
 
 	<style type="text/css">
@@ -54,8 +54,9 @@
 
 
 	.boxMammal {left: 50px; top: 210px;}
-	.boxBirds {left: 50px; top: 350px;}
-	.boxReptiles{left: 50px; top: 500px;}
+	.boxBirds {left: 50px; top: 320px;}
+	.boxFishes{left: 50px; top: 430px;}
+	.boxReptiles{left: 50px; top: 540px;}
 	.boxAmphibians{left: 50px; top: 650px;}
 
 	</style>
@@ -67,6 +68,7 @@
 <p id="heading">Animal Types:</p>
 		<div id="boxMammal" class="box boxMammal"><img src="images/101780968.png"><h3>Mammals</h3></div>
 		<div id="boxBirds" class="box boxBirds"><img src="images/101425787.png"><h3>Birds</h3></div>
+		<div id="boxFishes" class="box boxFishes"><img src="images/fishes.png"><h3>Fishes</h3></div>
 		<div id="boxReptiles" class="box boxReptiles"><img src="images/101582405.png"><h3>Reptiles</h3></div>
 		<div id="boxAmphibians" class="box boxAmphibians"><img src="images/101549068.png"><h3>Amphibians</h3></div>
 
