@@ -130,8 +130,13 @@ $(document).ready(function() {
         });
 
 	
- });
+ }); //Document Ready Funtion
  
+$(function() {
+		$('#btnBack').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageBack); });
+});
+
+function newpageBack() { window.location = "testScreen.html"; }
 
 function BoxItems(sql,val){
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -191,8 +196,6 @@ function getPhoneGapPath() {
 function checkScore(){
 	var rVal = true;
 	$("#draggable li").each(function(indx,li) {
-		//if($(li).attr("value")=="0") rVal = false;
-		//alert($(li).attr("class"));
 		if($(li).attr("class")=='ui-draggable') rVal = false;
 	});
 
@@ -300,7 +303,7 @@ $(function() {
 <!------------------------------------------------------------------------------------------>
 
 		<img src="images/btnHelp.png" id="btnHelp">
-		<img src="images/btnBack.png" id="btnBack" onclick="javascript:history.go(-1);">
+		<img src="images/btnBack.png" id="btnBack" >
 
 	</div>
 
