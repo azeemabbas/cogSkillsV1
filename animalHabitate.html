@@ -21,15 +21,18 @@
 	});
 	
 	$(function() {
-		$('#boxAnimalType').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageType);	});
-		$('#boxAnimalFood').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageFood);	});
-		$('#boxAnimalHabitate').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageHabitate);	});
+		$('#boxMammal').click(function() { 	$("body").delay( 800 ).fadeOut( 1000,  newpageMammal);	});
+		$('#boxBirds').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageBirds);	});
+		$('#boxFishes').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageFishes);	});
+		$('#boxReptiles').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageReptiles);	});
 
 	});
 
-	function newpageType() { window.location = "animalType.html"; }
-	function newpageFood() { window.location = "animalFood.html"; }
-	function newpageHabitate() { window.location = "animalHabitate.html"; }
+	function newpageMammal() { window.location = "mammals.html"; }
+	function newpageBirds() { window.location = "birds.html"; }
+	function newpageFishes() { window.location = "fishes.html"; }
+	function newpageReptiles() { window.location = "reptiles.html"; }
+
 	</script>
 
 	<style type="text/css">
@@ -49,12 +52,14 @@
 
 	.box{position: absolute; width:80%;	height:100px; background:#FFF; margin:20px auto; border-radius:15px; box-shadow: 3px 3px 5px #888888;border:1px solid #CCC; opacity: 0.85;}
 	.box h3{ text-align:center; position:relative; top: -95px; left: 20px; text-shadow: 2px 0 0 #CCC, -2px 0 0 #CCC, 0 2px 0 #CCC, 0 -2px 0 #CCC, 1px 1px #CCC, -1px -1px 0 #CCC, 1px -1px 0 #CCC, -1px 1px 0 #CCC; font-size: 28px;}
-	.box img{ height: 95px;}
+	.box img{ height: 95px; width: 35%;}
 
 
-	.animalType {left: 50px; top: 210px;}
-	.animalFood {left: 50px; top: 350px;}
-	.animalHabitate{left: 50px; top: 500px;}
+	.boxMammal {left: 50px; top: 210px;}
+	.boxBirds {left: 50px; top: 320px;}
+	.boxFishes{left: 50px; top: 430px;}
+	.boxReptiles{left: 50px; top: 540px;}
+	.boxAmphibians{left: 50px; top: 650px;}
 
 	</style>
    </head>
@@ -62,10 +67,12 @@
 <div data-role="page" id="home"  style="background-color:#4fcb3f;">
 	<div id="image-container">
 		<img src="images/splashscreen2.png"  />
-<p id="heading">Please Select an Option</p>
-		<div id="boxAnimalType" class="box animalType"><img src="images/101780968.png"><h3>Animal Types</h3></div>
-		<div id="boxAnimalFood" class="box animalFood"><img src="images/foodchain.png"><h3>Animal Food Chain</h3></div>
-		<div id="boxAnimalHabitate" class="box animalHabitate"><img src="images/101244626.png"><h3>Animal Habitate</h3></div>
+<p id="heading">Animal Types:</p>
+		<div id="boxLand" class="box boxMammal"><img src="images/101780968.png"><h3>Land Animals</h3></div>
+		<div id="boxUnderground" class="box boxBirds"><img src="images/101425787.png"><h3>Underground Animals</h3></div>
+		<div id="boxWater" class="box boxFishes"><img src="images/fishes.png"><h3>Water Animals</h3></div>
+		<div id="boxPet" class="box boxReptiles"><img src="images/101549068.png"><h3>Domestic Animals</h3></div>
+		<div id="boxWild" class="box boxAmphibians"><img src="images/101549068.png"><h3>Wild Animals</h3></div>
 
 
 

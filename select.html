@@ -21,16 +21,13 @@
 	});
 	
 	$(function() {
-		$('#button1').click(function() {
-			$("body").delay( 800 ).fadeOut( 1000,  newpage);
-			
-		});
+		$('#button1').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpage); });
+		$('#button2').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageTest); });
 
 	});
 
-	function newpage() {
-		window.location = "selectClassification.html";
-	}
+	function newpage() { window.location = "selectClassification.html"; }
+	function newpageTest() { window.location = "testScreen.html"; }
 	</script>
 
 	<style type="text/css">

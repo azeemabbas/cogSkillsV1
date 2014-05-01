@@ -43,7 +43,7 @@
 			
 		});
 
-		$('#finsInfo').click(function() {
+		$('#crawlInfo').click(function() {
 			if($("#imgFins").length){
 				$('#imgFins').remove();
 				$(this).css("height","40px");
@@ -53,7 +53,7 @@
 				$(this).css("height","150px");
 				$(this).css("opacity","0.9");
 				$(this).css("z-index","9");
-				$(this).append("<img id='imgFins'  src='images/fins.png'>");
+				$(this).append("<img id='imgFins'  src='images/reptileCrawl.png'>");
 			}
 		});
 
@@ -64,14 +64,14 @@
 				$(this).css("opacity","0.7");
 				$(this).css("z-index","1");
 			}else {
-				$(this).css("height","250px");
+				$(this).css("height","180px");
 				$(this).css("opacity","0.9");
 				$(this).css("z-index","9");
-				$(this).append("<img id='imgFishTail'  src='images/fishTail.png'>");
+				$(this).append("<img id='imgFishTail'  src='images/reptileTail.png'>");
 			}
 		});
 
-		$('#scalesInfo').click(function() {
+		$('#legsInfo').click(function() {
 			if($("#imgScales").length){
 				$('#imgScales').remove();
 				$(this).css("height","40px");
@@ -81,7 +81,7 @@
 				$(this).css("height","150px");
 				$(this).css("opacity","0.9");
 				$(this).css("z-index","9");
-				$(this).append("<img id='imgScales'  src='images/scales.png'>");
+				$(this).append("<img id='imgScales'  src='images/reptileLegs.png'>");
 			}
 		});
 
@@ -142,10 +142,10 @@
 
 	#mainImg{position: absolute; left: 100px; top: 240px; }
 
-
-	#scalesInfo{ position: absolute; top: 120px; left: 105px; font-size: 16px; color: white; z-index: 1;  background-color: #000; width: 180px; border: 2px 2px 2px 2px; border-color: #FFF; opacity:0.7; text-align: middle;}
-	#tailInfo{ position: absolute; top: 50px; left: 245px; font-size: 16px; color: white; z-index: 1;  background-color: #000; width: 180px; border: 2px 2px 2px 2px; border-color: #FFF; opacity:0.7; text-align: middle;}
-	#finsInfo{ position: absolute; top: -20px; left: 105px; font-size: 16px; color: white; z-index: 1;  background-color: #000; width: 180px; border: 2px 2px 2px 2px; border-color: #FFF; opacity:0.7; text-align: middle;}
+	
+	#crawlInfo{ position: absolute; top: -60px; left: -60px; font-size: 16px; color: white; z-index: 1;  background-color: #000; width: 250px; border: 2px 2px 2px 2px; border-color: #FFF; opacity:0.7; text-align: middle;}
+	#legsInfo{ position: absolute; top: 120px; left: 105px; font-size: 16px; color: white; z-index: 1;  background-color: #000; width: 300px; border: 2px 2px 2px 2px; border-color: #FFF; opacity:0.7; text-align: middle;}
+	#tailInfo{ position: absolute; top: 20px; left: 150px; font-size: 16px; color: white; z-index: 1;  background-color: #000; width: 210px; border: 2px 2px 2px 2px; border-color: #FFF; opacity:0.7; text-align: middle;}
 
 	#practice{position: absolute;top:550px; left: 70px;}
 	#divText{position: absolute;top:500px; left: 20px;}
@@ -168,18 +168,18 @@
 <div data-role="page" id="home"  style="background-color:#4fcb3f;">
 	<div id="image-container">
 		<img src="images/splashscreen2.png"  />
-		<p id="heading">Animal Type: Fishes</p>
+		<p id="heading">Animal Type: Reptiles</p>
 		<img src="images/btnHelp.png" id="btnHelp">
 		<img src="images/btnBack.png" id="btnBack" onclick="javascript:history.go(-1);">
 		
 
 		<div style="" id="mainImg">
-  			<img src="images/fish.png"/>
-  			<div id="finsInfo" class="ui-body ui-body-a ui-corner-all"><img text-align="middle" src="images/information1.png"  width="32" height="32" /><span>Birds have Fins</span></div>
+  			<img src="images/reptile.png"/>
+  			<div id="tailInfo" class="ui-body ui-body-a ui-corner-all"><img text-align="middle" src="images/information1.png"  width="32" height="32" /><span>Reptile have a Tail</span></div>
   			
-  			<div id="tailInfo" class="ui-body ui-body-a ui-corner-all"><img text-align="middle" src="images/information1.png"  width="32" height="32" /><span>Birds have a Tail</span></div>
+  			<div id="legsInfo" class="ui-body ui-body-a ui-corner-all"><img text-align="middle" src="images/information1.png"  width="32" height="32" /><span>Reptile have SHORT or NO Legs</span></div>
 
-  			<div id="scalesInfo" class="ui-body ui-body-a ui-corner-all"><img text-align="middle" src="images/information1.png"  width="32" height="32" /><span>Birds have Scales</span></div>
+  			<div id="crawlInfo" class="ui-body ui-body-a ui-corner-all"><img text-align="middle" src="images/information1.png"  width="32" height="32" /><span>Reptile Crawl on ground</span></div>
 
 		</div>
 
@@ -190,20 +190,20 @@
 
 	        <!-- start Basic Jquery Slider -->
 	        <ul class="bjqs" id="slider">
-			  <li value="false"><img src="images/fishesSnake.png"  ></li>
-	          <li value="true"><img src="images/fishesMarlin.png" ></li>
-	          <li value="false"><img src="images/fishesDog.png"  ></li>
-	          <li value="true"><img src="images/fishesStingray.png" ></li>
-	          <li value="false"><img src="images/fishesFrog.png"  ></li>
-	          <li value="true"><img src="images/fishesPuffer.png" ></li>
-	          <li value="true"><img src="images/fishesShark.png" ></li>
+			  <li value="false"><img src="images/reptileDog.png"  ></li>
+	          <li value="true"><img src="images/reptileSnake.png"  ></li>
+	          <li value="true"><img src="images/reptileWorm.png"  ></li>
+	          <li value="false"><img src="images/reptileParrot.png"  ></li>
+	          <li value="false"><img src="images/reptileDolphin.png"  ></li>
+	          <li value="true"><img src="images/reptileCrocodile.png"  ></li>
+	          <li value="false"><img src="images/reptileFrog.png"  ></li>
 	        </ul>
 	        <!-- end Basic jQuery Slider -->
 
 	      </div>
 	    </div>
 
-	    <p id="questionTxt">Is this a Fish?</p>
+	    <p id="questionTxt">Is this a Reptile?</p>
 	    <div id="btnYes"><img src="images/yes-button.png" width="64" height="64"></div>
 	    <div id="btnNo"><img src="images/no-button.png" width="64" height="64"></div>
 
