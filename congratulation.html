@@ -21,16 +21,14 @@
 	});
 	
 	$(function() {
-		$('#btnPlay').click(function() {
-			$("body").delay( 800 ).fadeOut( 1000,  newpage);
-			
-		});
+		$('#btnPlay').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpage); });
+		$('#btnBack').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageBack); });
 
 	});
 
-	function newpage() {
-		window.location = "dynamicClassification.html";
-	}
+	function newpage() { window.location = "dynamicClassification.html"; }
+	function newpageBack() { window.location = "testScreen.html"; }
+	
 	</script>
 
 	<style type="text/css">
@@ -68,7 +66,7 @@
 		
 
 		<img src="images/btnHelp.png" id="btnHelp">
-		<img src="images/btnBack.png" id="btnBack" onclick="javascript:history.go(-1);">
+		<img src="images/btnBack.png" id="btnBack">
 		
 		
 	</div>

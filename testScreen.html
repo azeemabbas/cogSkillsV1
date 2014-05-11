@@ -22,12 +22,14 @@
 	
 	$(function() {
 		$('#btnPlay').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpage); });
+		$('#backBTN').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpagebackBTN); });
 		$('#btnBack').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageBack); });
 
 	});
 
 	function newpage() { window.location = "dynamicClassification.html"; }
 	function newpageBack() { window.location = "select.html"; }
+	function newpagebackBTN() { window.location = "select.html"; }
 	</script>
 
 	<style type="text/css">
@@ -52,6 +54,7 @@
 	.boxMammal {left: 50px; top: 210px;}
 
 	#btnPlay{background-image: url('images/play_button.gif'); background-repeat: no-repeat; position: absolute; top: 560px; left: 380px; z-index: 99; width: 150px; height: 115px;}
+	#backBTN{background-image: url('images/back_button.png'); background-repeat: no-repeat; position: absolute; top: 560px; left: 50px; z-index: 99; width: 115px; height: 115px;}
 
 	</style>
    </head>
@@ -59,6 +62,7 @@
 <div data-role="page" id="home"  style="background-color:#4fcb3f;">
 	<div id="image-container">
 		<img src="images/splashscreen2.png"  />
+		<div id="backBTN"></div>
 		<div id="btnPlay"></div>
 		<div id="boxMammal" class="box boxMammal"><img src="images/testing.png"><h3>Ready for a TEST?</h3></div>
 
