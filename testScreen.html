@@ -21,13 +21,17 @@
 	});
 	
 	$(function() {
-		$('#btnPlay').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpage); });
+		$('#boxLevel1').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageLevel1); });
+		$('#boxLevel2').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageLevel2); });
 		$('#backBTN').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpagebackBTN); });
 		$('#btnBack').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageBack); });
 
+		$("button").button({ icons: { primary: "saveIcon" }  });
+
 	});
 
-	function newpage() { window.location = "dynamicClassification.html"; }
+	function newpageLevel1() { window.location = "disambiguation.html"; }
+	function newpageLevel2() { window.location = "dynamicClassification.html"; }
 	function newpageBack() { window.location = "select.html"; }
 	function newpagebackBTN() { window.location = "select.html"; }
 	</script>
@@ -50,8 +54,15 @@
 	.box h3{ text-align:center; position:relative; top: -125px; left: 80px; text-shadow: 2px 0 0 #CCC, -2px 0 0 #CCC, 0 2px 0 #CCC, 0 -2px 0 #CCC, 1px 1px #CCC, -1px -1px 0 #CCC, 1px -1px 0 #CCC, -1px 1px 0 #CCC; font-size: 28px;}
 	.box img{ height: 147px; width: 35%;}
 
-
 	.boxMammal {left: 50px; top: 210px;}
+
+	.box1{position: absolute; width:80%;	height:70px; background:#FFF; margin:20px auto; border-radius:15px; box-shadow: 3px 3px 5px #888888;border:1px solid #CCC; opacity: 0.85;}
+	.box1 h3{ text-align:center; position:relative; top: -85px; left: 50px; text-shadow: 2px 0 0 #CCC, -2px 0 0 #CCC, 0 2px 0 #CCC, 0 -2px 0 #CCC, 1px 1px #CCC, -1px -1px 0 #CCC, 1px -1px 0 #CCC, -1px 1px 0 #CCC; font-size: 28px;}
+	.box1 img{ height: 70px; width: 100px;}
+
+	.boxLevel1 {left: 50px; top: 150px;}
+
+	.boxLevel2 {left: 50px; top: 240px;}
 
 	#btnPlay{background-image: url('images/play_button.gif'); background-repeat: no-repeat; position: absolute; top: 560px; left: 380px; z-index: 99; width: 150px; height: 115px;}
 	#backBTN{background-image: url('images/back_button.png'); background-repeat: no-repeat; position: absolute; top: 560px; left: 50px; z-index: 99; width: 115px; height: 115px;}
@@ -62,9 +73,14 @@
 <div data-role="page" id="home"  style="background-color:#4fcb3f;">
 	<div id="image-container">
 		<img src="images/splashscreen2.png"  />
-		<div id="backBTN"></div>
-		<div id="btnPlay"></div>
-		<div id="boxMammal" class="box boxMammal"><img src="images/testing.png"><h3>Ready for a TEST?</h3></div>
+		<div id="backBTN1"></div>
+		<div id="btnPlay1"></div>
+		<div id="boxMammal" class="box boxMammal"><img src="images/testing.png"><h3>Ready for a TEST?</h3>
+			
+			<div id="boxLevel1" class="box1 boxLevel1"><img src="images/level1_button.png"><h3>Single Animal</h3></div>
+			<div id="boxLevel2" class="box1 boxLevel2"><img src="images/level2_button.png"><h3>Multiple Animals</h3></div>
+			
+		</div>
 
 		
 

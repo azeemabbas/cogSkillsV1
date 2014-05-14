@@ -51,7 +51,14 @@
 
 	#heading { color: red; font-size: 18px; }
 	#container{position: absolute; top: 125px; left: 10px;}
-
+	.list{
+   -moz-column-count: 3;
+    -moz-column-gap: 20px;
+    -webkit-column-count: 3;
+    -webkit-column-gap: 20px;
+    column-count: 3;
+    column-gap: 20px;
+	}
 	</style>
    </head>
 <body>
@@ -81,42 +88,32 @@ $(document).ready(function() {
 					var boxLabel = rDisjoint.label;
 					var boxImg = rDisjoint.image;
 					
-					var classDropable1 = { "width": "550px" , "height": "150px", "padding": "0.1em", "float": "left", "margin": "10px", "border-style": "dashed", "display":"table-cell", "float": "left", "position":"relative", "vertical-align": "middle", "z-index": "1", "background-image": "url(images/"+boxImg+")", "background-repeat": "no-repeat", "background-position": "10px 10px 10px 10px" };
+					var classDropable1 = { "width": "550px" , "height": "150px", "padding": "0.1em", "float": "left", "margin": "10px", "border-style": "dashed", "display":"table-cell", "float": "left", "position":"relative", "vertical-align": "middle", "z-index": "1", "background-image": "url(images/"+boxImg+")", "background-repeat": "no-repeat", "background-position": "calc(100% - 10px) center" };
 
-					$("#dropable1 p").text(boxLabel);
+					$("#dropable1 p").text("Tap the "+boxLabel+".");
 					$("#dropable1").css(classDropable1);
 				});
 
 				//Items of Box 1 classification
-				var sql = "SELECT concept.cID, concept.image FROM rdfsSubClassOf,concept WHERE rdfsSubClassOf.subClassCId = concept.cID AND rdfsSubClassOf.superClassCId = "+cid+" AND concept.classType='concrete' Limit 0,2";
+				var sql = "SELECT concept.cID, concept.image FROM rdfsSubClassOf,concept WHERE rdfsSubClassOf.subClassCId = concept.cID AND rdfsSubClassOf.superClassCId = "+cid+" AND concept.classType='concrete' Limit 0,1";
 
-				BoxItems(sql,"dropable1");
+				BoxItems(sql,"true");
 
-
-				//Dropable Box 2 Text and Image
-	          	var sql = 'SELECT rdfsLabel.label,concept.image FROM "rdfsLabel",concept WHERE rdfsLabel.cID=concept.cID AND rdfsLabel.cID='+disjointClass+' AND rdfsLabel.lang = "en"';
-				transaction.executeSql (sql, undefined,function (transaction, result1) {
-					var rDisjoint = result1.rows.item (0);
-					var boxLabel = rDisjoint.label;
-					var boxImg = rDisjoint.image;
 					
-					var classDropable1 = { "width": "550px" , "height": "150px", "padding": "0.5em", "float": "left", "margin": "10px", "border-style": "dashed", "display":"table-cell", "float": "left", "position":"relative", "vertical-align": "middle", "z-index": "1", "background-image": "url(images/"+boxImg+")", "background-repeat": "no-repeat", "background-position": "bottom left"};
-
-					$("#dropable2 p").text(boxLabel);
-					$("#dropable2").css(classDropable1);
-
-
 				//Items of Box 2 classification
 				var sql = "SELECT concept.cID, concept.image FROM rdfsSubClassOf,concept WHERE rdfsSubClassOf.subClassCId = concept.cID AND rdfsSubClassOf.superClassCId = "+disjointClass+" AND concept.classType='concrete' Limit 0,2";
 
+				BoxItems(sql,"false");
 
-				BoxItems(sql,"dropable2");
-				});
-	          
-	        
-	      
 
+				//Items of Box 3 classification
+				var sql = "SELECT concept.cID, concept.image FROM rdfsSubClassOf,concept WHERE rdfsSubClassOf.subClassCId = concept.cID AND (rdfsSubClassOf.superClassCId <> "+cid+" AND rdfsSubClassOf.superClassCId <> "+disjointClass+" AND rdfsSubClassOf.superClassCId <> "+disjointClass+" AND rdfsSubClassOf.superClassCId <> "+cid+") AND concept.classType='concrete' Limit 0,2";
+
+				BoxItems(sql,"false");
+				
+				
 	    },error);
+			
 	});
 	
 	$.ionSound({
@@ -130,15 +127,28 @@ $(document).ready(function() {
             volume: "1.0"
         });
 
- 	
-	
+		
  }); //Document Ready Funtion
  
 
+(function($){
 
-$(function() {
-		$('#btnBack').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageBack); });
-});
+    $.fn.shuffle = function() {
+    	//alert(this.length);
+        return this.each(function(){
+            var items = $(this).children().clone(true);
+            return (items.length) ? $(this).html($.shuffle(items)) : this;
+        });
+    }
+    
+    $.shuffle = function(arr) {
+        for(var j, x, i = arr.length; i; j = parseInt(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
+        return arr;
+    }
+    
+})(jQuery);
+
+$(function() { $('#btnBack').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageBack); }); });
 
 function newpageBack() { window.location = "testScreen.html"; }
 
@@ -156,29 +166,19 @@ function BoxItems(sql,val){
 	        for (var i = 0; i < result.rows.length; i++) 
 	        {
 	          var row = result.rows.item (i);
-	          html += '<li id="'+row.cID+'" style="background-image: url(images/'+row.image+'); width: 100px; height: 100px; padding: 0.1em; float: left; margin: 10px 10px 0 0; background-size: 100px 100px; background-repeat:no-repeat; float: left; display: table-cell; z-index: 2" value="'+val+'"></li>';
-	          htmlStar += '<li id="li'+row.cID+'" style="display:inline;" value="0"><img id="img'+row.cID+'" src="images/stargray.png"></li>';
+	          html += '<li id="'+row.cID+'" style="background-image: url(images/'+row.image+'); width: 100px; height: 100px; padding: 0.1em; float: left; margin: 40px 40px 40px 40px; background-size: 100px 100px; background-repeat:no-repeat; float: left; display: table-cell; z-index: 2" value="'+val+'"></li>';
 	        }
 	      } else {
 	        html += "<li> No Item </li>";
 	      }
 		
 		$("#draggable").append(html);
-		draggableActive();
-		
-		$("#stars").append(htmlStar);
 
 	  	},error);
 	});
 	
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-}
-
-function draggableActive () {
-	$( "#draggable li" ).each(function(indx,li) {
-		$( li ).draggable();
-	});
 }
 
 
@@ -197,112 +197,37 @@ function getPhoneGapPath() {
 
 };
 
-function checkScore(){
-	var rVal = true;
-	$("#draggable li").each(function(indx,li) {
-		if($(li).attr("class")=='ui-draggable') rVal = false;
-	});
-
-	if(rVal==true) {
-		$("body").delay( 800 ).fadeOut( 2000,  newpage);
-	} //end if
-}
-
 
 function newpage() {
 	window.location = "congratulation.html";
 }
 
-$(function() {
-	
-	$("#dropable1").droppable({
-     drop: function(event, ui) {
-               // do something with the dock
-               //$(this).doSomething();
+$(function(){
+	$('#draggable').on('click', 'li', function () {
+	 varVal = $(this).attr('value');
+	 if(varVal=='true'){
+	 	$(this).addClass( "droppedCorrect" );
+	 } else $(this).addClass( "droppedWrong");
 
-               // do something with the draggable item
-               var dropV = $(this).attr('id');
-               var dragV = $(ui.draggable).attr('value');
-               var dragID = $(ui.draggable).attr('id');
-               
-               if(dropV == dragV){               
-               		$(ui.draggable).removeClass();
-               		$(ui.draggable).addClass( "droppedCorrect" );
-               		$.ionSound.play("bell_ring");
-               		$("#img"+dragID).attr("src","images/star.png");
-               		$("#li"+dragID).attr("value","1");
-               		checkScore();
-               		$(ui.draggable).draggable('disabled',1);
-
-               		
-               		
-               } else {
-			   		$(ui.draggable).addClass( "droppedWrong" );
-			   		$.ionSound.play("wrong");
-			   		checkScore();
-			   		$(ui.draggable).draggable('disabled',1);
-			   }
-           }
 	});
-	
-	$("#dropable2").droppable({
-     drop: function(event, ui) {
-               // do something with the dock
-               //$(this).doSomething();
-
-               // do something with the draggable item
-               var dropV = $(this).attr('id');
-               var dragV = $(ui.draggable).attr('value');
-               var dragID = $(ui.draggable).attr('id');
-               if(dropV == dragV){
-               		$(ui.draggable).removeClass();               
-               		$(ui.draggable).addClass( "droppedCorrect" );
-               		$.ionSound.play("bell_ring");
-               		$("#img"+dragID).attr("src","images/star.png");
-               		$("#li"+dragID).attr("value","1");
-               		checkScore();
-               		$(ui.draggable).draggable('disabled',1);
-               		
-               		
-               } else {
-			   		$(ui.draggable).addClass( "droppedWrong" );
-			   		$.ionSound.play("wrong");
-			   		checkScore();
-			   		$(ui.draggable).draggable('disabled',1);
-					//$(ui.draggable).draggable();
-			   }
-           }
-	});
-
 });
 
 </script>
-	<p id="heading">Drag Animals to their Respective Blocks</p>
 	<div style="display: table;">
 		<div style="display: table-row">
 			<div id="dropable1" class="ui-body ui-body-a ui-corner-all">
-				<p style="text-shadow: 0.1em 0.1em 0.05em #333;margin:0.1em 5.5em; font-size:150%;">Classification1</p>
+				<p style="text-shadow: 0.1em 0.1em 0.05em #ccc; margin:50px 10px 10px 10px; font-size:250%;">Classification1</p>
 				</div>
 			</div>
-		<div style="display: table-row">
+		<div style="display: table-row" class="list">
 			<ul id="draggable"> 
 				
 
 
 			</ul>
 		</div>
-		<div style="display: table-row">
-			<div id="dropable2" class="ui-body ui-body-a ui-corner-all">
-				<p style="text-shadow: 0.1em 0.1em 0.05em #333;margin:5.0em 5.5em; font-size:150%;">Classification2</p>
-			</div>
-		</div>
+
 	</div> <!-- DIV TABLE -->
-	<div style="display: table-row">
-		<p>Score</p>
-		<ul id="stars">
-			
-		</ul>
-	</div>
 </div> <!-- Container -->
 
 <!------------------------------------------------------------------------------------------>
@@ -314,6 +239,11 @@ $(function() {
 
 
 </div> <!-- END OF PAGE -->
+<script type="text/javascript">
+setTimeout(function(){
+ $('ul').shuffle();
+}, 500);
 
+</script>
 </body>
 </html>
