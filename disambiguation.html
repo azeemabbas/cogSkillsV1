@@ -68,12 +68,41 @@
 <!------------------------------------------------------------------------------------------>
 <div id="container">
 <script>
-		var db = openDatabase ("cogSkills", "1.0", "cogSkills", 65535);
+		
+//First Add this to extend jQuery
+
+    $.extend({
+      getUrlVars: function(){
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++)
+        {
+          hash = hashes[i].split('=');
+          vars.push(hash[0]);
+          vars[hash[0]] = hash[1];
+        }
+        return vars;
+      },
+      getUrlVar: function(name){
+        return $.getUrlVars()[name];
+      }
+    });
+
+    //Second call with this:
+    // Get object of URL parameters
+    //var allVars = $.getUrlVars();
+
+    // Getting URL var by its nam
+    var urlConceptID = $.getUrlVar('concept');
+    
+
+
+var db = openDatabase ("cogSkills", "1.0", "cogSkills", 65535);
 		
 $(document).ready(function() {
 	db.transaction (function (transaction) {
-		var limit = Math.floor((Math.random()*5)+1); 
-		var sql = "SELECT * FROM owlDisjointWith Limit "+(limit-1)+",1";
+		var limit = Math.floor((Math.random()*3)+1); 
+		var sql = "SELECT * FROM owlDisjointWith Where cID='"+urlConceptID+"' OR disjointClassCId='"+urlConceptID+"' Limit "+(limit-1)+",2";
 		
 	    transaction.executeSql (sql, undefined,function (transaction, result) {
 	    	  var row = result.rows.item (0);
@@ -107,8 +136,8 @@ $(document).ready(function() {
 
 
 				//Items of Box 3 classification
-				var sql = "SELECT concept.cID, concept.image FROM rdfsSubClassOf,concept WHERE rdfsSubClassOf.subClassCId = concept.cID AND (rdfsSubClassOf.superClassCId <> "+cid+" AND rdfsSubClassOf.superClassCId <> "+disjointClass+" AND rdfsSubClassOf.superClassCId <> "+disjointClass+" AND rdfsSubClassOf.superClassCId <> "+cid+") AND concept.classType='concrete' Limit 0,2";
-
+				var sql = "SELECT concept.cID, concept.image FROM rdfsSubClassOf,concept WHERE rdfsSubClassOf.subClassCId = concept.cID AND (rdfsSubClassOf.superClassCId <> "+urlConceptID+" AND rdfsSubClassOf.superClassCId <> "+disjointClass+" AND rdfsSubClassOf.superClassCId <> "+disjointClass+" AND rdfsSubClassOf.superClassCId <> "+urlConceptID+") AND concept.classType='concrete' Limit 0,2";
+alert(sql);
 				BoxItems(sql,"false");
 				
 				

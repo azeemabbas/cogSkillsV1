@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>CogSkills - Cognitive Skill Tutoring App</title> 
+
+    
+	<link href="css/jquery-ui.css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.1.min.css" />
+    
+    <script src="js/libs/jquery-1.9.1.min.js"></script>
+    <script src="js/libs/jquery-ui.js"></script>
+    <script src="js/libs/jquery-ui.touch-punch.js"></script>
+	<script src="js/libs/ion.sound.js"></script>
+	<script src="js/libs/jquery.mobile-1.4.1.min.js"></script>
+	<script >
+
+	$(document).ready(function() {
+
+	});
+	
+	$(function() {
+		$('#btnPlay').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageLevel1); });
+		$('#boxLevel2').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageLevel2); });
+		$('#backBTN').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpagebackBTN); });
+		$('#btnBack').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageBack); });
+		$('#btnMammal').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testMammal); });
+
+		$("button").button({ icons: { primary: "saveIcon" }  });
+
+	});
+
+	function testMammal() { window.location = "disambiguation.html?concept=101780968"; }
+	function newpageLevel1() { window.location = "disambiguation.html"; }
+	function newpageLevel2() { window.location = "dynamicClassification.html"; }
+	function newpageBack() { window.location = "select.html"; }
+	function newpagebackBTN() { window.location = "select.html"; }
+	</script>
+
+	<style type="text/css">
+	#image-container {
+    	display: inline-block;
+    	position: relative;
+	}
+
+	#btnHelp { position: absolute; left: 150px; bottom: 20px; width: 128px; }
+	#btnBack { position: absolute; left: 300px; bottom: 20px; width: 128px; }
+
+	
+	p { text-shadow: 1px 1px 1px #000, 3px 3px 5px blue; }
+
+	#heading { color: red; position: absolute; left: 20px; top: 115px; width: 350px; font-size: 24px; }
+
+	.box{position: absolute; width:95%;	height:680px; background:#FFF; margin:20px auto; border-radius:15px; box-shadow: 3px 3px 5px #888888;border:1px solid #CCC; opacity: 0.85;}
+	.box h3{ text-align:center; position:relative; top: -150px; left: 80px; text-shadow: 2px 0 0 #CCC, -2px 0 0 #CCC, 0 2px 0 #CCC, 0 -2px 0 #CCC, 1px 1px #CCC, -1px -1px 0 #CCC, 1px -1px 0 #CCC, -1px 1px 0 #CCC; font-size: 28px;}
+	.box img{ height: 147px; width: 35%;}
+
+	.boxMammal {left: 10px; top: 120px;}
+
+	.box1{position: absolute; width:95%;	height:500px; background:#FFF; margin:20px auto; border-radius:15px; box-shadow: 3px 3px 5px #888888;border:1px solid #CCC; opacity: 0.85;}
+	.box1 h3{ text-align:center; position:relative; top: -85px; left: 50px; text-shadow: 2px 0 0 #CCC, -2px 0 0 #CCC, 0 2px 0 #CCC, 0 -2px 0 #CCC, 1px 1px #CCC, -1px -1px 0 #CCC, 1px -1px 0 #CCC, -1px 1px 0 #CCC; font-size: 28px;}
+	.box1 img{ height: 70px; width: 100px;}
+
+	.boxLevel1 {left: 10px; top: 130px;}
+
+
+	#btnPlay{background-image: url('images/play_button.gif'); background-repeat: no-repeat; position: absolute; top: 560px; left: 380px; z-index: 99; width: 150px; height: 115px;}
+	#backBTN{background-image: url('images/back_button.png'); background-repeat: no-repeat; position: absolute; top: 560px; left: 50px; z-index: 99; width: 115px; height: 115px;}
+
+	.redlock	{ 	background-image: url('images/red-button.png'); background-repeat: no-repeat;
+					background-size: 150px 105px;
+					width: 150px; height: 105px;
+					
+			 	}
+	.redlock span{ text-align:center; position:relative; top: -12px; left: 18px; text-shadow: 2px 0 0 #CCC, -2px 0 0 #CCC, 0 2px 0 #CCC, 0 -2px 0 #CCC, 1px 1px #CCC, -1px -1px 0 #CCC, 1px -1px 0 #CCC, -1px 1px 0 #CCC; font-size: 18px; color: #000;}
+	.redlock ul{position:relative;left:15px;top:10px;width:120px;}
+
+	.grayUnlock	{ 	background-image: url('images/whitey-button.png'); background-repeat: no-repeat;
+					background-size: 150px 105px;
+					width: 150px; height: 105px;
+					
+			 	}
+	.grayUnlock span{ text-align:center; position:relative; top: -12px; left: 18px; text-shadow: 2px 0 0 #CCC, -2px 0 0 #CCC, 0 2px 0 #CCC, 0 -2px 0 #CCC, 1px 1px #CCC, -1px -1px 0 #CCC, 1px -1px 0 #CCC, -1px 1px 0 #CCC; font-size: 18px; color: #000;}
+	.grayUnlock ul{position:relative;left:15px;top:10px;width:120px;}
+
+	.greenStars	{ 	background-image: url('images/green-button.png'); background-repeat: no-repeat;
+					background-size: 150px 105px;
+					width: 150px; height: 105px;
+			 	}
+	.greenStars span{ text-align:center; position:relative; top: -5px; left: 15px; text-shadow: 2px 0 0 #CCC, -2px 0 0 #CCC, 0 2px 0 #CCC, 0 -2px 0 #CCC, 1px 1px #CCC, -1px -1px 0 #CCC, 1px -1px 0 #CCC, -1px 1px 0 #CCC; font-size: 18px; color: #000;}
+	.greenStars ul{position:relative;left:-25px;top:10px;width:120px;}
+
+	.button1 {position: absolute; left: 10px; top: 20px; }
+	.button2 {position: absolute; left: 190px; top: 20px; }
+	.button3 {position: absolute; left: 370px; top: 20px; }
+
+	.button4 {position: absolute; left: 10px; top: 130px; }
+	.button5 {position: absolute; left: 190px; top: 130px; }
+	.button6 {position: absolute; left: 370px; top: 130px; }
+
+	.button7 {position: absolute; left: 10px; top: 260px; }
+	.button8 {position: absolute; left: 190px; top: 260px; }
+	.button9 {position: absolute; left: 370px; top: 260px; }
+
+	.button10 {position: absolute; left: 10px; top: 390px; }
+	.button11 {position: absolute; left: 190px; top: 390px; }
+	.button12 {position: absolute; left: 370px; top: 390px; }
+	</style>
+   </head>
+<body>
+<div data-role="page" id="home"  style="background-color:#4fcb3f;">
+	<div id="image-container">
+		<img src="images/splashscreen2.png"  />
+		<div id="backBTN1"></div>
+		<div id="btnPlay1"></div>
+		<div id="boxMammal" class="box boxMammal"><img src="images/testing.png"><h3>Test: Level 1<br>Single Animal</h3>
+			
+			<div id="boxLevel1" class="box1 boxLevel1">
+				
+				<div id="btnMammal" class="greenStars button1" >
+					<ul style="">
+						<li style="display:inline;"><img src="images/star_small.png" Style="width:20px; height:23px;"></li>
+						<li style="display:inline;"><img src="images/star_small.png" Style="width:20px; height:23px;"></li>
+						<li style="display:inline;"><img src="images/star_small.png" Style="width:20px; height:23px;"></li>
+						<li style="display:inline;"><img src="images/star_gray_small.png" Style="width:20px; height:23px;"></li>
+						<li style="display:inline;"><img src="images/star_gray_small.png" Style="width:20px; height:23px;"></li>
+					</ul>
+					<span>Mammals</span>
+				</div>
+
+				<div class="grayUnlock button2" >
+					<ul>
+						<li style="display:inline;"><img src="images/unlock.png" Style="width:32px; height:37px;"></li>
+					</ul>
+					<span>Birds</span>
+				</div>
+				
+				<div class="redlock button3" >
+					<ul>
+						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+					</ul>
+					<span>Fishes</span>
+				</div>
+
+				<div class="redlock button4" >
+					<ul>
+						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+					</ul>
+					<span>Reptiles</span>
+				</div>
+
+				<div class="redlock button5" >
+					<ul>
+						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+					</ul>
+					<span>Amphibians</span>
+				</div>
+
+				<div class="redlock button6" >
+					<ul>
+						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+					</ul>
+					<span>Wild Animal</span>
+				</div>
+
+				<div class="redlock button7" >
+					<ul>
+						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+					</ul>
+					<span>Domestic Animal</span>
+				</div>
+
+				<div class="redlock button8" >
+					<ul>
+						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+					</ul>
+					<span>Land Animal</span>
+				</div>
+
+				<div class="redlock button9" >
+					<ul>
+						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+					</ul>
+					<span>Water Animal</span>
+				</div>
+
+				<div class="redlock button10" >
+					<ul>
+						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+					</ul>
+					<span>Carnivore</span>
+				</div>
+
+				<div class="redlock button11" >
+					<ul>
+						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+					</ul>
+					<span>Herbivore</span>
+				</div>
+
+				<div class="redlock button12" >
+					<ul>
+						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+					</ul>
+					<span>Omnivore</span>
+				</div>
+
+				
+				
+			</div>
+			
+			
+		</div>
+
+		
+
+		<img src="images/btnHelp.png" id="btnHelp">
+		<img src="images/btnBack.png" id="btnBack">
+		
+		
+	</div>
+
+
+</div> <!-- END OF PAGE -->
+
+
+</body>
+</html>
