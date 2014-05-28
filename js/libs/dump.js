@@ -12,7 +12,17 @@ var sql = 'CREATE TABLE "rdfsSubClassOf" ("subClassCId" TEXT,"superClassCId" TEX
 transaction.executeSql (sql, undefined, function () { }, error);
 var sql = 'CREATE TABLE "owlDisjointWith" ("rID" TEXT,"cID" TEXT NOT NULL, "disjointClassCId" INTEGER NOT NULL, PRIMARY KEY ("cID", "disjointClassCId"));';
 transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'CREATE TABLE "content" ("cnID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "cnType" TEXT, "category1" TEXT, "category2" TEXT);';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'CREATE TABLE "content_item" ("cnItemID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "cnID" INTEGER, "itemID" TEXT);';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'CREATE TABLE "student_score" ("scoreID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "cnID" INTEGER, "std_score" INTEGER, "total_score" INTEGER);';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'CREATE TABLE "student_solution" ("rID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "cnID" INTEGER, "category" TEXT, "itemID" INTEGER, "result" BOOLEAN);';
+transaction.executeSql (sql, undefined, function () { }, error);
 
+var sql = 'INSERT INTO content VALUES(1,"Single",101425787,"");';
+transaction.executeSql (sql, undefined, function () { }, error);
 var sql = 'INSERT INTO "owlSameAs" ("cID","sameAsCId") VALUES ("102316119","102315126");';
 transaction.executeSql (sql, undefined, function () { }, error);
 var sql = 'INSERT INTO "concept" ("cID","uri","image","rdfType","classType") VALUES ("100012748","http://www.w3.org/2006/03/wn/wn20/instances/synset-animal-noun-1","100012748.png","owl:Class","abstract");';

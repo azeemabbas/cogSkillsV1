@@ -72,52 +72,65 @@ $(document).ready(function() {
 	    	  var row = result.rows.item (0);
 	          var cid = row.cID;
 	          var disjointClass = row.disjointClassCId;
-	          
-	          //Dropable Box 1 Text and Image
-	          var sql = 'SELECT rdfsLabel.label,concept.image FROM "rdfsLabel",concept WHERE rdfsLabel.cID=concept.cID AND rdfsLabel.cID='+cid+' AND rdfsLabel.lang = "en"';
-	          
-				transaction.executeSql (sql, undefined,function (transaction, result1) {
-					var rDisjoint = result1.rows.item (0);
-					var boxLabel = rDisjoint.label;
-					var boxImg = rDisjoint.image;
+	          var contentID;
+				
+		    	$( "body" ).data( "category1", cid );
+		    	$( "body" ).data( "category2", disjointClass );
+		    	$( "body" ).data( "stdScore" , 4);
+
+				var sql = "SELECT cnID FROM content ORDER BY cnID DESC LIMIT 1;";
+		    	transaction.executeSql (sql, undefined,function (transaction, resultC) {
+			   		var row = resultC.rows.item (0);	
+		    		contentID = (row.cnID+1); //Insertion in Content Table
 					
-					var classDropable1 = { "width": "550px" , "height": "150px", "padding": "0.1em", "float": "left", "margin": "10px", "border-style": "dashed", "display":"table-cell", "float": "left", "position":"relative", "vertical-align": "middle", "z-index": "1", "background-image": "url(images/"+boxImg+")", "background-repeat": "no-repeat", "background-position": "10px 10px 10px 10px" };
+					$( "body" ).data( "cnID", contentID );
 
-					$("#dropable1 p").text(boxLabel);
-					$("#dropable1").css(classDropable1);
-				});
+		    		var sqlContent = "INSERT INTO content ('cnID','cnType','category1','category2') VALUES (?, ?, ?, ?)";
+					transaction.executeSql (sqlContent, [contentID,'Multiple',$('body').data('category1'),$('body').data('category2')],function () {},error);
 
-				//Items of Box 1 classification
-				var sql = "SELECT concept.cID, concept.image FROM rdfsSubClassOf,concept WHERE rdfsSubClassOf.subClassCId = concept.cID AND rdfsSubClassOf.superClassCId = "+cid+" AND concept.classType='concrete' Limit 0,2";
+			          //Dropable Box 1 Text and Image
+			          var sql = 'SELECT rdfsLabel.label,concept.image FROM "rdfsLabel",concept WHERE rdfsLabel.cID=concept.cID AND rdfsLabel.cID='+cid+' AND rdfsLabel.lang = "en"';
+			          
+						transaction.executeSql (sql, undefined,function (transaction, result1) {
+							var rDisjoint = result1.rows.item (0);
+							var boxLabel = rDisjoint.label;
+							var boxImg = rDisjoint.image;
+							
+							var classDropable1 = { "width": "550px" , "height": "150px", "padding": "0.1em", "float": "left", "margin": "10px", "border-style": "dashed", "display":"table-cell", "float": "left", "position":"relative", "vertical-align": "middle", "z-index": "1", "background-image": "url(images/"+boxImg+")", "background-repeat": "no-repeat", "background-position": "10px 10px 10px 10px" };
 
-				BoxItems(sql,"dropable1");
+							$("#dropable1 p").text(boxLabel);
+							$("#dropable1").css(classDropable1);
+						});
 
+						//Items of Box 1 classification
+						var sql = "SELECT concept.cID, concept.image FROM rdfsSubClassOf,concept WHERE rdfsSubClassOf.subClassCId = concept.cID AND rdfsSubClassOf.superClassCId = "+cid+" AND concept.classType='concrete' Limit 0,2";
 
-				//Dropable Box 2 Text and Image
-	          	var sql = 'SELECT rdfsLabel.label,concept.image FROM "rdfsLabel",concept WHERE rdfsLabel.cID=concept.cID AND rdfsLabel.cID='+disjointClass+' AND rdfsLabel.lang = "en"';
-				transaction.executeSql (sql, undefined,function (transaction, result1) {
-					var rDisjoint = result1.rows.item (0);
-					var boxLabel = rDisjoint.label;
-					var boxImg = rDisjoint.image;
-					
-					var classDropable1 = { "width": "550px" , "height": "150px", "padding": "0.5em", "float": "left", "margin": "10px", "border-style": "dashed", "display":"table-cell", "float": "left", "position":"relative", "vertical-align": "middle", "z-index": "1", "background-image": "url(images/"+boxImg+")", "background-repeat": "no-repeat", "background-position": "bottom left"};
-
-					$("#dropable2 p").text(boxLabel);
-					$("#dropable2").css(classDropable1);
-
-
-				//Items of Box 2 classification
-				var sql = "SELECT concept.cID, concept.image FROM rdfsSubClassOf,concept WHERE rdfsSubClassOf.subClassCId = concept.cID AND rdfsSubClassOf.superClassCId = "+disjointClass+" AND concept.classType='concrete' Limit 0,2";
+						BoxItems(sql,"dropable1");
 
 
-				BoxItems(sql,"dropable2");
-				});
-	          
-	        
-	      
+						//Dropable Box 2 Text and Image
+			          	var sql = 'SELECT rdfsLabel.label,concept.image FROM "rdfsLabel",concept WHERE rdfsLabel.cID=concept.cID AND rdfsLabel.cID='+disjointClass+' AND rdfsLabel.lang = "en"';
+						transaction.executeSql (sql, undefined,function (transaction, result1) {
+							var rDisjoint = result1.rows.item (0);
+							var boxLabel = rDisjoint.label;
+							var boxImg = rDisjoint.image;
+							
+							var classDropable1 = { "width": "550px" , "height": "150px", "padding": "0.5em", "float": "left", "margin": "10px", "border-style": "dashed", "display":"table-cell", "float": "left", "position":"relative", "vertical-align": "middle", "z-index": "1", "background-image": "url(images/"+boxImg+")", "background-repeat": "no-repeat", "background-position": "bottom left"};
 
-	    },error);
-	});
+							$("#dropable2 p").text(boxLabel);
+							$("#dropable2").css(classDropable1);
+
+
+						//Items of Box 2 classification
+						var sql = "SELECT concept.cID, concept.image FROM rdfsSubClassOf,concept WHERE rdfsSubClassOf.subClassCId = concept.cID AND rdfsSubClassOf.superClassCId = "+disjointClass+" AND concept.classType='concrete' Limit 0,2";
+
+
+						BoxItems(sql,"dropable2");
+						}); //Items Sql
+					}); //Content ID
+	    },error); //Disjoint SQL
+
+	}); //Main DB
 	
 	$.ionSound({
             sounds: [
@@ -158,6 +171,7 @@ function BoxItems(sql,val){
 	          var row = result.rows.item (i);
 	          html += '<li id="'+row.cID+'" style="background-image: url(images/'+row.image+'); width: 100px; height: 100px; padding: 0.1em; float: left; margin: 10px 10px 0 0; background-size: 100px 100px; background-repeat:no-repeat; float: left; display: table-cell; z-index: 2" value="'+val+'"></li>';
 	          htmlStar += '<li id="li'+row.cID+'" style="display:inline;" value="0"><img id="img'+row.cID+'" src="images/stargray.png"></li>';
+	          insterItem($('body').data('cnID'),row.cID);
 	        }
 	      } else {
 	        html += "<li> No Item </li>";
@@ -175,6 +189,14 @@ function BoxItems(sql,val){
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function insterItem(cntID,itemID){
+	db.transaction (function (transaction) {
+		var sqlContent = "INSERT INTO content_item ('cnItemID','cnID', 'itemID') VALUES (?, ?, ?)";
+		transaction.executeSql (sqlContent, [null, cntID, itemID],function () {},error);
+	});
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function draggableActive () {
 	$( "#draggable li" ).each(function(indx,li) {
 		$( li ).draggable();
@@ -204,6 +226,10 @@ function checkScore(){
 	});
 
 	if(rVal==true) {
+		db.transaction (function (transaction) {
+			var sqlScore = "INSERT INTO student_score ('scoreID','cnID','std_score','total_score') VALUES (?, ?, ?, ?)";
+			transaction.executeSql (sqlScore, [null, $("body").data("cnID"), $("body").data("stdScore"), 4],function () {},error);
+		});
 		$("body").delay( 800 ).fadeOut( 2000,  newpage);
 	} //end if
 }
@@ -224,24 +250,32 @@ $(function() {
                var dropV = $(this).attr('id');
                var dragV = $(ui.draggable).attr('value');
                var dragID = $(ui.draggable).attr('id');
-               
-               if(dropV == dragV){               
-               		$(ui.draggable).removeClass();
-               		$(ui.draggable).addClass( "droppedCorrect" );
-               		$.ionSound.play("bell_ring");
-               		$("#img"+dragID).attr("src","images/star.png");
-               		$("#li"+dragID).attr("value","1");
-               		checkScore();
-               		$(ui.draggable).draggable('disabled',1);
-
-               		
-               		
+               if(dropV == dragV){
+					db.transaction (function (transaction) {
+						var sqlSolution = "INSERT INTO student_solution ('rID','cnID','category','itemID','result') VALUES (?, ?, ?, ?, ?)";
+						transaction.executeSql (sqlSolution, [null, $("body").data("cnID"), $("body").data("category1"), dragID, 1],function () { alert("ok");},error);
+						$(ui.draggable).removeClass();
+	               		$(ui.draggable).addClass( "droppedCorrect" );
+	               		$.ionSound.play("bell_ring");
+	               		$("#img"+dragID).attr("src","images/star.png");
+	               		$("#li"+dragID).attr("value","1");
+	               		$(ui.draggable).draggable('disabled',1);
+	               		
+					});
+              		
                } else {
-			   		$(ui.draggable).addClass( "droppedWrong" );
-			   		$.ionSound.play("wrong");
-			   		checkScore();
-			   		$(ui.draggable).draggable('disabled',1);
+			   		db.transaction (function (transaction) {
+						var sqlSolution = "INSERT INTO student_solution ('rID','cnID','category','itemID','result') VALUES (?, ?, ?, ?, ?)";
+						transaction.executeSql (sqlSolution, [null, $("body").data("cnID"), $("body").data("category1"), dragID, 0],function () {},error);
+						$("body").data("stdScore",($("body").data("stdScore") - 1));
+				   		$(ui.draggable).addClass( "droppedWrong" );
+				   		$.ionSound.play("wrong");
+				   		$(ui.draggable).draggable('disabled',1);
+				   		
+					});
+					
 			   }
+			   checkScore();
            }
 	});
 	
@@ -255,22 +289,31 @@ $(function() {
                var dragV = $(ui.draggable).attr('value');
                var dragID = $(ui.draggable).attr('id');
                if(dropV == dragV){
-               		$(ui.draggable).removeClass();               
-               		$(ui.draggable).addClass( "droppedCorrect" );
-               		$.ionSound.play("bell_ring");
-               		$("#img"+dragID).attr("src","images/star.png");
-               		$("#li"+dragID).attr("value","1");
-               		checkScore();
-               		$(ui.draggable).draggable('disabled',1);
-               		
-               		
+               		db.transaction (function (transaction) {
+						var sqlSolution = "INSERT INTO student_solution ('rID','cnID','category','itemID','result') VALUES (?, ?, ?, ?, ?)";
+						transaction.executeSql (sqlSolution, [null, $("body").data("cnID"), $("body").data("category2"), dragID, 1],function () {},error);
+						$(ui.draggable).removeClass();               
+	               		$(ui.draggable).addClass( "droppedCorrect" );
+	               		$.ionSound.play("bell_ring");
+	               		$("#img"+dragID).attr("src","images/star.png");
+	               		$("#li"+dragID).attr("value","1");
+	               		$(ui.draggable).draggable('disabled',1);
+	               		
+					});
                } else {
-			   		$(ui.draggable).addClass( "droppedWrong" );
-			   		$.ionSound.play("wrong");
-			   		checkScore();
-			   		$(ui.draggable).draggable('disabled',1);
-					//$(ui.draggable).draggable();
+					db.transaction (function (transaction) {
+						var sqlSolution = "INSERT INTO student_solution ('rID','cnID','category','itemID','result') VALUES (?, ?, ?, ?, ?)";
+						transaction.executeSql (sqlSolution, [null, $("body").data("cnID"), $("body").data("category2"), dragID, 0],function () {},error);
+						$(ui.draggable).addClass( "droppedWrong" );
+				   		$.ionSound.play("wrong");
+				   		$(ui.draggable).draggable('disabled',1);
+						//$(ui.draggable).draggable();
+						$("body").data("stdScore",($("body").data("stdScore") - 1));
+						//checkScore();
+					});
+					
 			   }
+			   checkScore();
            }
 	});
 

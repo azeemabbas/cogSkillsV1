@@ -92,52 +92,68 @@
     // Get object of URL parameters
     //var allVars = $.getUrlVars();
 
-    // Getting URL var by its nam
+    // Getting URL var by its name
     var urlConceptID = $.getUrlVar('concept');
     
 
 
 var db = openDatabase ("cogSkills", "1.0", "cogSkills", 65535);
-		
+
 $(document).ready(function() {
+	
 	db.transaction (function (transaction) {
 		var nItems;
-		var sql = 'SELECT rdfsLabel.label,concept.image FROM "rdfsLabel",concept WHERE rdfsLabel.cID=concept.cID AND rdfsLabel.cID="'+urlConceptID+'" AND rdfsLabel.lang = "en"';
-				
-	      //Dropable Box 1 Text and Image
-			transaction.executeSql (sql, undefined,function (transaction, result1) {
-				var rDisjoint = result1.rows.item (0);
-				var boxLabel = rDisjoint.label;
-				var boxImg = rDisjoint.image;
-				
-				var classDropable1 = { "width": "550px" , "height": "150px", "padding": "0.1em", "float": "left", "margin": "10px", "border-style": "dashed", "display":"table-cell", "float": "left", "position":"relative", "vertical-align": "middle", "z-index": "1", "background-image": "url(images/"+boxImg+")", "background-repeat": "no-repeat", "background-position": "calc(100% - 10px) center" };
+		var contentID;
+		var sql = "SELECT cnID FROM content ORDER BY cnID DESC LIMIT 1;";
+	    	transaction.executeSql (sql, undefined,function (transaction, result) {
+		   		var row = result.rows.item (0);	
+	    		contentID = (row.cnID+1); //Insertion in Content Table
 
-				$("#dropable1 p").text("Tap the "+boxLabel+".");
-				$("#dropable1").css(classDropable1);
-			},error);
+	    		$( "body" ).data( "cnID", contentID );
+	    		$( "body" ).data( "conceptID", urlConceptID );
+	    		$( "body" ).data( "stdScore" , 5);
 
-				//Items of Box 1 classification
-				sql = "SELECT concept.cID,concept.image, rdfsSubClassOf.superClassCId FROM rdfsSubClassOf, concept WHERE concept.cID=rdfsSubClassOf.subClassCId AND (rdfsSubClassOf.superClassCId='"+urlConceptID+"' AND concept.classType='concrete')";
+	    		var sqlContent = "INSERT INTO content ('cnID','cnType','category1','category2') VALUES (?, ?, ?, ?)";
+				transaction.executeSql (sqlContent, [contentID,'Single',urlConceptID,''],function () {},error);
+
+				var sql = 'SELECT rdfsLabel.label,concept.image FROM "rdfsLabel",concept WHERE rdfsLabel.cID=concept.cID AND rdfsLabel.cID="'+urlConceptID+'" AND rdfsLabel.lang = "en"';
 				
-				//Query for Other Items
-				transaction.executeSql (sql, undefined,function (transaction, result) {
-					var str="";
-					nItems = result.rows.length;
-					if(result.rows.length){
-						for (var i = 0; i < result.rows.length; i++){
-	          				var row = result.rows.item (i);
-	          				if(str==""){str = row.cID;} else {str = str+","+row.cID}
-	          			}
-					}
+		      //Dropable Box 1 Text and Image
+				transaction.executeSql (sql, undefined,function (transaction, result1) {
+					var rDisjoint = result1.rows.item (0);
+					var boxLabel = rDisjoint.label;
+					var boxImg = rDisjoint.image;
 					
-					var limit = Math.floor((Math.random()*nItems)); 
-					sql = "SELECT concept.cID,concept.image, rdfsSubClassOf.superClassCId FROM rdfsSubClassOf, concept WHERE concept.cID=rdfsSubClassOf.subClassCId AND (rdfsSubClassOf.superClassCId='"+urlConceptID+"' AND concept.classType='concrete') Limit "+limit+",1";
-					BoxItems(sql,"true");
+					var classDropable1 = { "width": "550px" , "height": "150px", "padding": "0.1em", "float": "left", "margin": "10px", "border-style": "dashed", "display":"table-cell", "float": "left", "position":"relative", "vertical-align": "middle", "z-index": "1", "background-image": "url(images/"+boxImg+")", "background-repeat": "no-repeat", "background-position": "calc(100% - 10px) center" };
 
-					var limit = Math.floor((Math.random()*5)+1); 
-					var sql = "SELECT DISTINCT concept.cID,concept.image, rdfsSubClassOf.superClassCId FROM rdfsSubClassOf, concept WHERE concept.cID=rdfsSubClassOf.subClassCId AND superClassCId<>'"+urlConceptID+"' AND concept.cID NOT IN ("+str+") AND concept.classType='concrete' Limit "+limit+",5";
-					BoxItems(sql,"false");
-				});
+					$("#dropable1 p").text("Tap the "+boxLabel+".");
+					$("#dropable1").css(classDropable1);
+				},error);
+
+					//Items of Box 1 classification
+					sql = "SELECT concept.cID,concept.image, rdfsSubClassOf.superClassCId FROM rdfsSubClassOf, concept WHERE concept.cID=rdfsSubClassOf.subClassCId AND (rdfsSubClassOf.superClassCId='"+urlConceptID+"' AND concept.classType='concrete')";
+					
+					//Query for Other Items
+					transaction.executeSql (sql, undefined,function (transaction, result) {
+						var str="";
+						nItems = result.rows.length;
+						if(result.rows.length){
+							for (var i = 0; i < result.rows.length; i++){
+		          				var row = result.rows.item (i);
+		          				if(str==""){str = row.cID;} else {str = str+","+row.cID}
+		          			}
+						}
+						
+						var limit = Math.floor((Math.random()*nItems)); 
+						sql = "SELECT concept.cID,concept.image, rdfsSubClassOf.superClassCId FROM rdfsSubClassOf, concept WHERE concept.cID=rdfsSubClassOf.subClassCId AND (rdfsSubClassOf.superClassCId='"+urlConceptID+"' AND concept.classType='concrete') Limit "+limit+",1";
+						
+						BoxItems(sql,"true",contentID);
+
+						var limit = Math.floor((Math.random()*5)+1); 
+						var sql = "SELECT DISTINCT concept.cID,concept.image, rdfsSubClassOf.superClassCId FROM rdfsSubClassOf, concept WHERE concept.cID=rdfsSubClassOf.subClassCId AND superClassCId<>'"+urlConceptID+"' AND concept.cID NOT IN ("+str+") AND concept.classType='concrete' Limit "+limit+",5";
+						BoxItems(sql,"false",contentID);
+					});
+    	    });
 
 	});
 	
@@ -174,12 +190,11 @@ $(document).ready(function() {
 })(jQuery);
 
 $(function() { $('#btnBack').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageBack); }); });
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function newpageBack() { window.location = "testScreen.html"; }
 
-function BoxItems(sql,val){
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//alert(sql);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function BoxItems(sql,val,cnID){
 	var html = "";
 	var htmlStar = "";
 	db.transaction (function (transaction) {
@@ -192,6 +207,7 @@ function BoxItems(sql,val){
 	        {
 	          var row = result.rows.item (i);
 	          html += '<li id="'+row.cID+'" style="background-image: url(images/'+row.image+'); width: 100px; height: 100px; padding: 0.1em; float: left; margin: 40px 40px 40px 40px; background-size: 100px 100px; background-repeat:no-repeat; float: left; display: table-cell; z-index: 2" value="'+val+'"></li>';
+	          insterItem(cnID,row.cID);
 	        }
 	      } else {
 	        html += "<li> No Item </li>";
@@ -202,12 +218,33 @@ function BoxItems(sql,val){
 
 	  	},error);
 	});
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function insterItem(cntID,itemID){
+	db.transaction (function (transaction) {
+		var sqlContent = "INSERT INTO content_item ('cnItemID','cnID', 'itemID') VALUES (?, ?, ?)";
+		transaction.executeSql (sqlContent, [null, cntID, itemID],function () {},error);
+	});
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function getLastCnID(){
+	var rID=0;
+	var sql = "SELECT cnID FROM content ORDER BY cnID DESC LIMIT 1;";
+	db.transaction (function (transaction) {
+	    transaction.executeSql (sql, undefined,function (transaction, result) {
+	    	var row = result.rows.item (0);	
+	    	rID = row.cnID;
 	
+	    	return rID;
+	    	
+	    });
+		alert(rID);
+	});
 	
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	return rID;
 }
 
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function error (transaction, err) {
 	//if(err.code==5) dumpSQL(db);
   alert ("DB error : " + err.message + err.code);
@@ -231,15 +268,30 @@ function newpage() {
 $(function(){
 	$('#draggable').on('click', 'li', function () {
 	 varVal = $(this).attr('value');
+	 varItemID = $(this).attr('id');
 	 if(varVal=='true'){
+	 	db.transaction (function (transaction) {
+			var sqlSolution = "INSERT INTO student_solution ('rID','cnID','category','itemID','result') VALUES (?, ?, ?, ?, ?)";
+			transaction.executeSql (sqlSolution, [null, $("body").data("cnID"), $("body").data("conceptID"), varItemID, 1],function () {},error);
+		});
+		
+		db.transaction (function (transaction) {
+			var sqlScore = "INSERT INTO student_score ('scoreID','cnID','std_score','total_score') VALUES (?, ?, ?, ?)";
+			transaction.executeSql (sqlScore, [null, $("body").data("cnID"), $("body").data("stdScore"), 5],function () {},error);
+		});
+
 	 	$(this).addClass( "droppedCorrect" );
 	 	$("body").delay( 800 ).fadeOut( 2000,  newpage);
 	 } else {
+	 	db.transaction (function (transaction) {
+			var sqlSolution = "INSERT INTO student_solution ('rID','cnID','category','itemID','result') VALUES (?, ?, ?, ?, ?)";
+			transaction.executeSql (sqlSolution, [null, $("body").data("cnID"), $("body").data("conceptID"), varItemID, 0],function () {},error);
+		});
 	 	$(this).addClass( "droppedWrong");
 	 	//Stars Score Reduce
 	 	for(var i=4;i>=0;i--){
 	 		var imgSrc = $("#stars li:eq("+i+") img").attr('src');
-	 		if(imgSrc=='images/star.png') { $("#stars li:eq("+i+") img").attr('src','images/stargray.png'); i=-1;}
+	 		if(imgSrc=='images/star.png') { $("#stars li:eq("+i+") img").attr('src','images/stargray.png'); $("body").data("stdScore",i); i=-1; }
 	 	}
 		/*$( "#stars li" ).each(function( index ) {
 			alert(index);
