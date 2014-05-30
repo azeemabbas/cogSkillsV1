@@ -15,9 +15,55 @@
 	<script src="js/libs/ion.sound.js"></script>
 	<script src="js/libs/jquery.mobile-1.4.1.min.js"></script>
 	<script >
+	
+	function getStars(divID, score){
+		var html="";
+		for(var i=0;i<score;i++){
+			html = html + '<li style="display:inline;"><img src="images/star_small.png" Style="width:20px; height:23px;"></li>';
+		}
+		
+		for(var i=score;i<5;i++){
+			html = html + '<li style="display:inline;"><img src="images/star_gray_small.png" Style="width:20px; height:23px;"></li>';
+		}
+
+		$("#"+divID+" ul").append(html);
+	}
+
+	var db = openDatabase ("cogSkills", "1.0", "cogSkills", 65535);
 
 	$(document).ready(function() {
+		
+		db.transaction (function (transaction) {
+		var sql = "SELECT * FROM content_status ORDER BY csID";
+	       transaction.executeSql (sql, undefined,function (transaction, result) {
+	        if (result.rows.length) {
+	        	for (var i = 0; i < result.rows.length; i++){
+	        		var row = result.rows.item (i);
+	        		var categoryID = row.categoryID+"";
+	        		categoryID = categoryID.replace("/","");
+	        		categoryID = categoryID.replace("/","");
+	        		//alert(row.lockUnlock+" : "+row.score);
+					if(row.lockUnlock==1 && row.score==null){
+						//Unlocked
+						//alert('Here');
+						$("#"+categoryID).removeClass( "redlock" ).addClass( "grayUnlock" );
+						$("#"+categoryID+" ul").append('<li style="display:inline;"><img src="images/unlock.png" Style="width:32px; height:37px;"></li>');
 
+
+					} else if (row.lockUnlock==1 && row.score!=null){
+						//Played
+						$("#"+categoryID).removeClass( "redlock" ).addClass( "greenStars" );
+						getStars(categoryID,row.score);
+
+					} else {
+						//Locked
+						$("#"+categoryID+" ul").append('<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>');
+						$("#"+categoryID).off();
+					}
+	        	}
+	        }
+	    });
+	   });
 	});
 	
 	$(function() {
@@ -26,38 +72,38 @@
 		$('#backBTN').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpagebackBTN); });
 		$('#btnBack').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageBack); });
 
-		$('#btnMammal').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testMammal); });
-		$('#btnBird').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testBird); });
-		$('#btnFish').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testFish); });
+		$('#101780968').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testMammal); });
+		$('#101425787').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testBird); });
+		$('#102422955').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testFish); });
 
-		$('#btnReptile').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testReptile); });
-		$('#btnAmphibian').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testAmphibian); });
-		$('#btnWild').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testWild); });
+		$('#101582405').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testReptile); });
+		$('#101549068').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testAmphibian); });
+		$('#107510753').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testWild); });
 
-		$('#btnDomestic').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testDomestic); });
-		$('#btnLand').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testLand); });
-		$('#btnWater').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testWater); });
+		$('#101244626').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testDomestic); });
+		$('#m0fbf1m').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testLand); });
+		$('#m01tqf2').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testWater); });
 
-		$('#btnCarnivore').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testCarnivore); });
-		$('#btnHerbivore').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testHerbivore); });
-		$('#btnOmnivore').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testOmnivore); });
+		$('#101992546').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testCarnivore); });
+		$('#101250980').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testHerbivore); });
+		$('#109704935').click(function() { $("body").delay( 800 ).fadeOut( 1000,  testOmnivore); });
 
 		$("button").button({ icons: { primary: "saveIcon" }  });
 
 	});
 
-	function testMammal() { window.location = "disambiguation.html?concept=101780968"; }
-	function testBird() { window.location = "disambiguation.html?concept=101425787"; }
-	function testFish() { window.location = "disambiguation.html?concept=102422955"; }
-	function testReptile() { window.location = "disambiguation.html?concept=101582405"; }
-	function testAmphibian() { window.location = "disambiguation.html?concept=101549068"; }
-	function testWild() { window.location = "disambiguation.html?concept=107510753"; }
-	function testDomestic() { window.location = "disambiguation.html?concept=101244626"; }
-	function testLand() { window.location = "disambiguation.html?concept=/m/0fbf1m"; }
-	function testWater() { window.location = "disambiguation.html?concept=/m/01tqf2"; }
-	function testCarnivore() { window.location = "disambiguation.html?concept=101992546"; }
-	function testHerbivore() { window.location = "disambiguation.html?concept=101250980"; }
-	function testOmnivore() { window.location = "disambiguation.html?concept=109704935"; }
+	function testMammal() { window.location = "disambiguation.html?concept=101780968&categoryNext=101425787"; }
+	function testBird() { window.location = "disambiguation.html?concept=101425787&categoryNext=102422955"; }
+	function testFish() { window.location = "disambiguation.html?concept=102422955&categoryNext=101582405"; }
+	function testReptile() { window.location = "disambiguation.html?concept=101582405&categoryNext=101549068"; }
+	function testAmphibian() { window.location = "disambiguation.html?concept=101549068&categoryNext=107510753"; }
+	function testWild() { window.location = "disambiguation.html?concept=107510753&categoryNext=101244626"; }
+	function testDomestic() { window.location = "disambiguation.html?concept=101244626&categoryNext=/m/0fbf1m"; }
+	function testLand() { window.location = "disambiguation.html?concept=/m/0fbf1m&categoryNext=/m/01tqf2"; }
+	function testWater() { window.location = "disambiguation.html?concept=/m/01tqf2&categoryNext=101992546"; }
+	function testCarnivore() { window.location = "disambiguation.html?concept=101992546&categoryNext=101250980"; }
+	function testHerbivore() { window.location = "disambiguation.html?concept=101250980&categoryNext=109704935"; }
+	function testOmnivore() { window.location = "disambiguation.html?concept=109704935&categoryNext=101780968"; }
 	function newpageLevel1() { window.location = "disambiguation.html"; }
 	function newpageLevel2() { window.location = "dynamicClassification.html"; }
 	function newpageBack() { window.location = "select.html"; }
@@ -144,90 +190,86 @@
 			
 			<div id="boxLevel1" class="box1 boxLevel1">
 				
-				<div id="btnMammal" class="greenStars button1" >
-					<ul style="">
-						<li style="display:inline;"><img src="images/star_small.png" Style="width:20px; height:23px;"></li>
-						<li style="display:inline;"><img src="images/star_small.png" Style="width:20px; height:23px;"></li>
-						<li style="display:inline;"><img src="images/star_small.png" Style="width:20px; height:23px;"></li>
-						<li style="display:inline;"><img src="images/star_gray_small.png" Style="width:20px; height:23px;"></li>
-						<li style="display:inline;"><img src="images/star_gray_small.png" Style="width:20px; height:23px;"></li>
+				<div id="101780968" class="redlock button1" >
+					<ul>
+						
 					</ul>
 					<span>Mammals</span>
 				</div>
 
-				<div id="btnBird" class="grayUnlock button2" >
+				<div id="101425787" class="grayUnlock button2" >
 					<ul>
-						<li style="display:inline;"><img src="images/unlock.png" Style="width:32px; height:37px;"></li>
+						
 					</ul>
 					<span>Birds</span>
 				</div>
 				
-				<div id="btnFish" class="redlock button3" >
+				<div id="102422955" class="redlock button3" >
 					<ul>
-						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+						
 					</ul>
 					<span>Fishes</span>
 				</div>
 
-				<div id="btnReptile" class="redlock button4" >
+				<div id="101582405" class="redlock button4" >
 					<ul>
-						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+						
 					</ul>
 					<span>Reptiles</span>
 				</div>
 
-				<div id="btnAmphibian" class="redlock button5" >
+				<div id="101549068" class="redlock button5" >
 					<ul>
-						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+						
 					</ul>
 					<span>Amphibians</span>
 				</div>
 
-				<div id="btnWild" class="redlock button6" >
+				<div id="107510753" class="redlock button6" >
 					<ul>
-						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+						
 					</ul>
 					<span>Wild Animal</span>
 				</div>
 
-				<div id="btnDomestic" class="redlock button7" >
+				<div id="101244626" class="redlock button7" >
 					<ul>
-						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+						
 					</ul>
 					<span>Domestic Animal</span>
 				</div>
 
-				<div id="btnLand" class="redlock button8" >
+				<div id="m0fbf1m" class="redlock button8" >
 					<ul>
-						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+						
 					</ul>
 					<span>Land Animal</span>
 				</div>
 
-				<div id="btnWater" class="redlock button9" >
+				<div id="m01tqf2" class="redlock button9" >
 					<ul>
-						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+						
 					</ul>
 					<span>Water Animal</span>
 				</div>
 
-				<div id="btnCarnivore" class="redlock button10" >
+				<div id="101992546" class="redlock button10" >
 					<ul>
-						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+						
 					</ul>
 					<span>Carnivore</span>
 				</div>
 
-				<div id="btnHerbivore" class="redlock button11" >
+				<div id="101250980" class="redlock button11" >
 					<ul>
-						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+						
 					</ul>
 					<span>Herbivore</span>
 				</div>
 
-				<div id="btnOmnivore" class="redlock button12" >
+				<div id="109704935" class="redlock button12" >
 					<ul>
-						<li style="display:inline;"><img src="images/lock.png" Style="width:32px; height:37px;"></li>
+						
 					</ul>
 					<span>Omnivore</span>
 				</div>

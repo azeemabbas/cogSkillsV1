@@ -94,6 +94,7 @@
 
     // Getting URL var by its name
     var urlConceptID = $.getUrlVar('concept');
+    var urlcategoryNext = $.getUrlVar('categoryNext');
     
 
 
@@ -112,6 +113,7 @@ $(document).ready(function() {
 	    		$( "body" ).data( "cnID", contentID );
 	    		$( "body" ).data( "conceptID", urlConceptID );
 	    		$( "body" ).data( "stdScore" , 5);
+	    		$( "body" ).data( "categoryNext" , urlcategoryNext);
 
 	    		var sqlContent = "INSERT INTO content ('cnID','cnType','category1','category2') VALUES (?, ?, ?, ?)";
 				transaction.executeSql (sqlContent, [contentID,'Single',urlConceptID,''],function () {},error);
@@ -269,19 +271,48 @@ $(function(){
 	$('#draggable').on('click', 'li', function () {
 	 varVal = $(this).attr('value');
 	 varItemID = $(this).attr('id');
+	 
 	 if(varVal=='true'){
 	 	db.transaction (function (transaction) {
 			var sqlSolution = "INSERT INTO student_solution ('rID','cnID','category','itemID','result') VALUES (?, ?, ?, ?, ?)";
 			transaction.executeSql (sqlSolution, [null, $("body").data("cnID"), $("body").data("conceptID"), varItemID, 1],function () {},error);
-		});
-		
-		db.transaction (function (transaction) {
+
 			var sqlScore = "INSERT INTO student_score ('scoreID','cnID','std_score','total_score') VALUES (?, ?, ?, ?)";
 			transaction.executeSql (sqlScore, [null, $("body").data("cnID"), $("body").data("stdScore"), 5],function () {},error);
-		});
+			
+
+			var str="";		
+			var sql = "SELECT * FROM content WHERE cnType ='Single' and category1='"+$("body").data("conceptID")+"'";
+			transaction.executeSql (sql, undefined,function (transaction, result) {	      
+	      		if (result.rows.length) {
+	        		for (var i = 0; i < result.rows.length; i++)
+	        		{
+	          			var row = result.rows.item (i);
+	          			if(str=="") str = row.cnID; else str = str + "," + row.cnID;
+	          		}
+	          	}
+		        
+		        sql = "SELECT avg(std_score) as avgScore FROM student_score WHERE cnID IN ("+str+")";
+		        transaction.executeSql (sql, undefined,function (transaction, result) {
+		        	var row = result.rows.item (0);
+		        	var sqlUpdate = "UPDATE content_status SET score=? WHERE categoryID=?";
+		        	transaction.executeSql (sqlUpdate, [Math.floor(row.avgScore),$("body").data("conceptID")],function () {},error);
+
+		        	if(Math.floor(row.avgScore)>=2){
+						var sqlUpdate = "UPDATE content_status SET lockUnlock=? WHERE categoryID=?";
+		        		transaction.executeSql (sqlUpdate, [1,$("body").data("categoryNext")],function () {},error);		        		
+		        	}
+
+		        });
+	        });
+
+	        
+		});			
+		
 
 	 	$(this).addClass( "droppedCorrect" );
 	 	$("body").delay( 800 ).fadeOut( 2000,  newpage);
+
 	 } else {
 	 	db.transaction (function (transaction) {
 			var sqlSolution = "INSERT INTO student_solution ('rID','cnID','category','itemID','result') VALUES (?, ?, ?, ?, ?)";

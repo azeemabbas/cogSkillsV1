@@ -92,26 +92,33 @@
     // Get object of URL parameters
     //var allVars = $.getUrlVars();
 
-    // Getting URL var by its nam
+    // Getting URL var by its name
     var urlConceptID = $.getUrlVar('concept');
     
 
 
 var db = openDatabase ("cogSkills", "1.0", "cogSkills", 65535);
-		
-$(document).ready(function() {
-	db.transaction (function (transaction) {
 
-		var sql = "SELECT * FROM owlDisjointWith Where cID='"+urlConceptID+"'";
-		
-	    transaction.executeSql (sql, undefined,function (transaction, result) {
-	    	  var row = result.rows.item (0);
-	          var cid = row.cID;
-	          var disjointClass = row.disjointClassCId;
-	          
-	          //Dropable Box 1 Text and Image
-	          var sql = 'SELECT rdfsLabel.label,concept.image FROM "rdfsLabel",concept WHERE rdfsLabel.cID=concept.cID AND rdfsLabel.cID='+cid+' AND rdfsLabel.lang = "en"';
-	          
+$(document).ready(function() {
+	
+	db.transaction (function (transaction) {
+		var nItems;
+		var contentID;
+		var sql = "SELECT cnID FROM content ORDER BY cnID DESC LIMIT 1;";
+	    	transaction.executeSql (sql, undefined,function (transaction, result) {
+		   		var row = result.rows.item (0);	
+	    		contentID = (row.cnID+1); //Insertion in Content Table
+
+	    		$( "body" ).data( "cnID", contentID );
+	    		$( "body" ).data( "conceptID", urlConceptID );
+	    		$( "body" ).data( "stdScore" , 5);
+
+	    		var sqlContent = "INSERT INTO content ('cnID','cnType','category1','category2') VALUES (?, ?, ?, ?)";
+				transaction.executeSql (sqlContent, [contentID,'Single',urlConceptID,''],function () {},error);
+
+				var sql = 'SELECT rdfsLabel.label,concept.image FROM "rdfsLabel",concept WHERE rdfsLabel.cID=concept.cID AND rdfsLabel.cID="'+urlConceptID+'" AND rdfsLabel.lang = "en"';
+				
+		      //Dropable Box 1 Text and Image
 				transaction.executeSql (sql, undefined,function (transaction, result1) {
 					var rDisjoint = result1.rows.item (0);
 					var boxLabel = rDisjoint.label;
@@ -121,34 +128,33 @@ $(document).ready(function() {
 
 					$("#dropable1 p").text("Tap the "+boxLabel+".");
 					$("#dropable1").css(classDropable1);
-				});
+				},error);
 
-				//Items of Box 1 classification
-				var sql = "SELECT concept.cID, concept.image FROM rdfsSubClassOf,concept WHERE rdfsSubClassOf.subClassCId = concept.cID AND rdfsSubClassOf.superClassCId = "+cid+" AND concept.classType='concrete' Limit 0,1";
-
-				BoxItems(sql,"true");
-
+					//Items of Box 1 classification
+					sql = "SELECT concept.cID,concept.image, rdfsSubClassOf.superClassCId FROM rdfsSubClassOf, concept WHERE concept.cID=rdfsSubClassOf.subClassCId AND (rdfsSubClassOf.superClassCId='"+urlConceptID+"' AND concept.classType='concrete')";
 					
-				//Items of Box 2 classification
-				var sql = "SELECT concept.cID, concept.image FROM rdfsSubClassOf,concept WHERE rdfsSubClassOf.subClassCId = concept.cID AND rdfsSubClassOf.superClassCId = "+disjointClass+" AND concept.classType='concrete' Limit 0,3";
+					//Query for Other Items
+					transaction.executeSql (sql, undefined,function (transaction, result) {
+						var str="";
+						nItems = result.rows.length;
+						if(result.rows.length){
+							for (var i = 0; i < result.rows.length; i++){
+		          				var row = result.rows.item (i);
+		          				if(str==""){str = row.cID;} else {str = str+","+row.cID}
+		          			}
+						}
+						
+						var limit = Math.floor((Math.random()*nItems)); 
+						sql = "SELECT concept.cID,concept.image, rdfsSubClassOf.superClassCId FROM rdfsSubClassOf, concept WHERE concept.cID=rdfsSubClassOf.subClassCId AND (rdfsSubClassOf.superClassCId='"+urlConceptID+"' AND concept.classType='concrete') Limit "+limit+",1";
+						
+						BoxItems(sql,"true",contentID);
 
-				BoxItems(sql,"false");
+						var limit = Math.floor((Math.random()*5)+1); 
+						var sql = "SELECT DISTINCT concept.cID,concept.image, rdfsSubClassOf.superClassCId FROM rdfsSubClassOf, concept WHERE concept.cID=rdfsSubClassOf.subClassCId AND superClassCId<>'"+urlConceptID+"' AND concept.cID NOT IN ("+str+") AND concept.classType='concrete' Limit "+limit+",5";
+						BoxItems(sql,"false",contentID);
+					});
+    	    });
 
-
-				var sql = "SELECT * FROM owlDisjointWith Where disjointClassCId='"+urlConceptID+"'";
-				transaction.executeSql (sql, undefined,function (transaction, result) {
-	    	  		var row = result.rows.item (0);
-	          		var cid = row.cID;
-	          		var disjointClass = row.disjointClassCId;
-	      		});
-				//Items of Box 3 classification
-				var sql = "SELECT concept.cID, concept.image FROM rdfsSubClassOf,concept WHERE rdfsSubClassOf.subClassCId = concept.cID AND rdfsSubClassOf.superClassCId <> "+cid+" AND concept.classType='concrete' Limit 0,2";
-//alert(sql);
-				BoxItems(sql,"false");
-				
-				
-	    },error);
-			
 	});
 	
 	$.ionSound({
@@ -184,12 +190,11 @@ $(document).ready(function() {
 })(jQuery);
 
 $(function() { $('#btnBack').click(function() { $("body").delay( 800 ).fadeOut( 1000,  newpageBack); }); });
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function newpageBack() { window.location = "testScreen.html"; }
 
-function BoxItems(sql,val){
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//alert(sql);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function BoxItems(sql,val,cnID){
 	var html = "";
 	var htmlStar = "";
 	db.transaction (function (transaction) {
@@ -202,6 +207,7 @@ function BoxItems(sql,val){
 	        {
 	          var row = result.rows.item (i);
 	          html += '<li id="'+row.cID+'" style="background-image: url(images/'+row.image+'); width: 100px; height: 100px; padding: 0.1em; float: left; margin: 40px 40px 40px 40px; background-size: 100px 100px; background-repeat:no-repeat; float: left; display: table-cell; z-index: 2" value="'+val+'"></li>';
+	          insterItem(cnID,row.cID);
 	        }
 	      } else {
 	        html += "<li> No Item </li>";
@@ -209,16 +215,38 @@ function BoxItems(sql,val){
 		
 		$("#draggable").append(html);
 
+
 	  	},error);
 	});
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function insterItem(cntID,itemID){
+	db.transaction (function (transaction) {
+		var sqlContent = "INSERT INTO content_item ('cnItemID','cnID', 'itemID') VALUES (?, ?, ?)";
+		transaction.executeSql (sqlContent, [null, cntID, itemID],function () {},error);
+	});
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function getLastCnID(){
+	var rID=0;
+	var sql = "SELECT cnID FROM content ORDER BY cnID DESC LIMIT 1;";
+	db.transaction (function (transaction) {
+	    transaction.executeSql (sql, undefined,function (transaction, result) {
+	    	var row = result.rows.item (0);	
+	    	rID = row.cnID;
 	
+	    	return rID;
+	    	
+	    });
+		alert(rID);
+	});
 	
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	return rID;
 }
 
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function error (transaction, err) {
-	if(err.code==5) dumpSQL(db);
+	//if(err.code==5) dumpSQL(db);
   alert ("DB error : " + err.message + err.code);
   return false;
 }
@@ -234,16 +262,71 @@ function getPhoneGapPath() {
 
 
 function newpage() {
-	window.location = "congratulation.html";
+	window.location = "testScreenLevel1.html";
 }
 
 $(function(){
 	$('#draggable').on('click', 'li', function () {
 	 varVal = $(this).attr('value');
+	 varItemID = $(this).attr('id');
+	 
 	 if(varVal=='true'){
-	 	$(this).addClass( "droppedCorrect" );
-	 } else $(this).addClass( "droppedWrong");
+	 	db.transaction (function (transaction) {
+			var sqlSolution = "INSERT INTO student_solution ('rID','cnID','category','itemID','result') VALUES (?, ?, ?, ?, ?)";
+			transaction.executeSql (sqlSolution, [null, $("body").data("cnID"), $("body").data("conceptID"), varItemID, 1],function () {},error);
+		});
+		
+		db.transaction (function (transaction) {
+			var sqlScore = "INSERT INTO student_score ('scoreID','cnID','std_score','total_score') VALUES (?, ?, ?, ?)";
+			transaction.executeSql (sqlScore, [null, $("body").data("cnID"), $("body").data("stdScore"), 5],function () {},error);
+		});
 
+		db.transaction (function (transaction) {
+			var str="";		
+			var sql = "SELECT * FROM content WHERE cnType ='Single' and category1='"+$("body").data("conceptID")+"'";
+			alert(sql);
+			transaction.executeSql (sql, undefined,function (transaction, result) {	      
+	      		if (result.rows.length) {
+	        		for (var i = 0; i < result.rows.length; i++)
+	        		{
+	          			var row = result.rows.item (i);
+	          			if(str=="") str = row.cnID; else str = str + "," + row.cnID;
+	          		}
+	          	}
+		        
+		        sql = "SELECT avg(std_score) as avgScore FROM student_score WHERE cnID IN ("+str+")";
+		        alert(sql);
+		        transaction.executeSql (sql, undefined,function (transaction, result) {
+		        	var row = result.rows.item (0);
+		        	alert(Math.floor(row.avgScore));
+		        	var sqlUpdate = "UPDATE content_status SET score=? WHERE categoryID=?";
+		        	transaction.executeSql (sqlUpdate, [Math.floor(row.avgScore),$("body").data("conceptID")],function () {},error);
+
+		        });
+	        });
+
+	        
+		});			
+		
+
+	 	$(this).addClass( "droppedCorrect" );
+	 	$("body").delay( 800 ).fadeOut( 2000,  newpage);
+	 } else {
+	 	db.transaction (function (transaction) {
+			var sqlSolution = "INSERT INTO student_solution ('rID','cnID','category','itemID','result') VALUES (?, ?, ?, ?, ?)";
+			transaction.executeSql (sqlSolution, [null, $("body").data("cnID"), $("body").data("conceptID"), varItemID, 0],function () {},error);
+		});
+	 	$(this).addClass( "droppedWrong");
+	 	//Stars Score Reduce
+	 	for(var i=4;i>=0;i--){
+	 		var imgSrc = $("#stars li:eq("+i+") img").attr('src');
+	 		if(imgSrc=='images/star.png') { $("#stars li:eq("+i+") img").attr('src','images/stargray.png'); $("body").data("stdScore",i); i=-1; }
+	 	}
+		/*$( "#stars li" ).each(function( index ) {
+			alert(index);
+		});*/
+	}
+		
 	});
 });
 
@@ -261,7 +344,16 @@ $(function(){
 
 			</ul>
 		</div>
-
+		<div style="display: table-row">
+			<p>Score</p>
+			<ul id="stars">
+				<li style="display:inline;" value="1"><img src="images/star.png"></li>
+				<li style="display:inline;" value="1"><img src="images/star.png"></li>
+				<li style="display:inline;" value="1"><img src="images/star.png"></li>
+				<li style="display:inline;" value="1"><img src="images/star.png"></li>
+				<li style="display:inline;" value="0"><img src="images/star.png"></li>
+			</ul>
+		</div>
 	</div> <!-- DIV TABLE -->
 </div> <!-- Container -->
 
@@ -276,7 +368,7 @@ $(function(){
 </div> <!-- END OF PAGE -->
 <script type="text/javascript">
 setTimeout(function(){
- $('ul').shuffle();
+ $('#draggable').shuffle();
 }, 500);
 
 </script>

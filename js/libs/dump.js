@@ -20,6 +20,8 @@ var sql = 'CREATE TABLE "student_score" ("scoreID" INTEGER PRIMARY KEY AUTOINCRE
 transaction.executeSql (sql, undefined, function () { }, error);
 var sql = 'CREATE TABLE "student_solution" ("rID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "cnID" INTEGER, "category" TEXT, "itemID" INTEGER, "result" BOOLEAN);';
 transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'CREATE TABLE "content_status" ("csID" INTEGER NOT NULL, "categoryID" INTEGER NOT NULL, "score" INTEGER, "lockUnlock" BOOLEAN, PRIMARY KEY ("csID", "categoryID"))';
+transaction.executeSql (sql, undefined, function () { }, error);
 
 var sql = 'INSERT INTO content VALUES(1,"Single",101425787,"");';
 transaction.executeSql (sql, undefined, function () { }, error);
@@ -428,6 +430,31 @@ transaction.executeSql (sql, undefined, function () { }, error);
 var sql = 'INSERT INTO "owlDisjointWith" ("rID","cID","disjointClassCId") VALUES ("13","101250980","109704935");';
 transaction.executeSql (sql, undefined, function () { }, error);
 var sql = 'INSERT INTO "owlDisjointWith" ("rID","cID","disjointClassCId") VALUES ("14","/m/0fbf1m","/m/01tqf2");';
+transaction.executeSql (sql, undefined, function () { }, error);
+
+var sql = 'INSERT INTO "content_status" ("csID","categoryID","score","lockUnlock") VALUES (1,"101780968",NULL,"1");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "content_status" ("csID","categoryID","score","lockUnlock") VALUES (2,"101425787",NULL,"0");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "content_status" ("csID","categoryID","score","lockUnlock") VALUES (3,"102422955",NULL,"0");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "content_status" ("csID","categoryID","score","lockUnlock") VALUES (4,"101582405",NULL,"0");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "content_status" ("csID","categoryID","score","lockUnlock") VALUES (5,"101549068",NULL,"0");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "content_status" ("csID","categoryID","score","lockUnlock") VALUES (6,"107510753",NULL,"0");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "content_status" ("csID","categoryID","score","lockUnlock") VALUES (7,"101244626",NULL,"0");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "content_status" ("csID","categoryID","score","lockUnlock") VALUES (8,"/m/0fbf1m",NULL,"0");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "content_status" ("csID","categoryID","score","lockUnlock") VALUES (9,"/m/01tqf2",NULL,"0");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "content_status" ("csID","categoryID","score","lockUnlock") VALUES (10,"101992546",NULL,"0");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "content_status" ("csID","categoryID","score","lockUnlock") VALUES (11,"101250980",NULL,"0");';
+transaction.executeSql (sql, undefined, function () { }, error);
+var sql = 'INSERT INTO "content_status" ("csID","categoryID","score","lockUnlock") VALUES (12,"109704935",NULL,"0");';
 transaction.executeSql (sql, undefined, function () { }, error);
 
 });
